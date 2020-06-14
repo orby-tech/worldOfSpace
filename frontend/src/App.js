@@ -1,26 +1,47 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import  React from 'react';
+import  './App.css';
 
+import  NavBar  from './NavBar'
+import  Footer   from './Footer'
+
+import  EarthSistem   from './earthSistem'
+
+
+import  { Route }       from 'react-router-dom';
+import  { BrowserRouter } from 'react-router-dom';
+
+import  { Provider } from 'react-redux'
+import  {  createStore } from 'redux'
+import  { rootReducer } from './redux/rootReducer'
+
+
+const persistedState = localStorage.getItem('reduxState') 
+                       ? JSON.parse(localStorage.getItem('reduxState'))
+                       : {}
+
+const store = createStore(rootReducer,
+    persistedState)
+
+store.subscribe(()=>{
+  localStorage.setItem('reduxState', JSON.stringify(store.getState()))
+});
 function App() {
+  
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+        <Provider store={store}>
+        <BrowserRouter>
+          <Route exact component={NavBar}/>
+          <Route path="/asteroids" exact component={EarthSistem} />
+
+
+          <Route exact component={Footer}/>
+          <div className="alt__footer"></div>
+        </BrowserRouter>
+        </Provider>
     </div>
   );
 }
+
 
 export default App;
