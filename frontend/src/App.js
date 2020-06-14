@@ -35,7 +35,6 @@ function App() {
           <Route path="/asteroids" exact component={EarthSistem} />
 
 
-          <Route exact component={Footer}/>
           <div className="alt__footer"></div>
         </BrowserRouter>
         </Provider>
