@@ -3,6 +3,13 @@ import  { connect } from 'react-redux'
 
 import  sun from "./img/sun.png";
 import  earth from "./img/earth.png";
+import  mercury from "./img/mercury.png";
+import  venera from "./img/venera.png";
+import  mars from "./img/mars.png";
+import  jupiter from "./img/jupiter.png";
+import  saturn from "./img/saturn.png";
+import  uranus from "./img/uranus.png";
+import  neptun from "./img/neptun.png";
 import  moon from "./img/moon.png";
 import  asteroidIMG from "./img/asteroid.png";
 
@@ -69,14 +76,28 @@ class PRESolarSystem extends Component{
     let i = 0;
     let self = this
     setInterval(function() {
-      document.querySelector('.asteroidContainer__earth').style.transform = 'rotate(' + (-i/50) + 'rad)';
-      document.querySelector('.asteroidContainer__moonContainer').style.transform = 'rotate(' + (-i/150) + 'rad)';
+      document.querySelector('.solarSystem__sun').style.transform = 'rotate(' + (-i/150) + 'rad)';
+      document.querySelector('.solarSystem__mercuryContainer').style.transform = 'rotate(' + (-i/36) + 'rad)';
+      document.querySelector('.solarSystem__veneraContainer').style.transform = 'rotate(' + (-i/92.5) + 'rad)';
+      document.querySelector('.solarSystem__earthContainer').style.transform = 'rotate(' + (-i/150) + 'rad)';
+      document.querySelector('.solarSystem__marsContainer').style.transform = 'rotate(' + (-i/282) + 'rad)';
+      document.querySelector('.solarSystem__jupiterContainer').style.transform = 'rotate(' + (-i/1800) + 'rad)';
+      document.querySelector('.solarSystem__saturnContainer').style.transform = 'rotate(' + (-i/4500 - 2.5) + 'rad)';
+      document.querySelector('.solarSystem__uranusContainer').style.transform = 'rotate(' + (-i/12600 - 2.6) + 'rad)';
+      document.querySelector('.solarSystem__neptunContainer').style.transform = 'rotate(' + (-i/24750 - 2.6) + 'rad)';
+
+      document.querySelector('.solarSystem__mercury').style.transform = 'rotate(' + (-i/72) + 'rad)';
+      document.querySelector('.solarSystem__venera').style.transform = 'rotate(' + (-i/19.25) + 'rad)';
+      document.querySelector('.solarSystem__earth').style.transform = 'rotate(' + (-i/55) + 'rad)';
+      document.querySelector('.solarSystem__mars').style.transform = 'rotate(' + (-i/56) + 'rad)';
+      document.querySelector('.solarSystem__jupiter').style.transform = 'rotate(' + (i/1800 + 0.5) + 'rad)';
+      document.querySelector('.solarSystem__saturn').style.transform = 'rotate(' + (-0.2 + i/4500) + 'rad)';
       self.coordinatsUpdate(i)
       i++
-      if ( i/150 > 2*Math.PI){
-        i -= 2*Math.PI*150
+      if ( i/150/36/92.5 > 2*Math.PI){
+        i -= 2*Math.PI*150*36*92.5
       }
-    }, 33);
+    }, 10);
     document.addEventListener("click", this.asteroidsMove);
   }
 
@@ -88,28 +109,81 @@ class PRESolarSystem extends Component{
 
   render() {
     return(   
-      <div className="asteroidContainer">
+      <div className="solarSystem">
           <img  
-            className="asteroidContainer__earth"
+            className="solarSystem__sun"
             alt="earth IMG"
             src={sun}/>
-          <div className="asteroidContainer__moonTrack"> </div>
-          <div className="asteroidContainer__moonContainer">
+          <div className="solarSystem__mercuryTrack"> </div>
+          <div className="solarSystem__mercuryContainer">
             <img  
-              className="asteroidContainer__moon"
-              alt="moon IMG"
-              src={moon}/>
+              className="solarSystem__mercury"
+              alt="mercury IMG"
+              src={mercury}/>
+          </div>
+
+
+          <div className="solarSystem__veneraTrack"> </div>
+          <div className="solarSystem__veneraContainer">
+            <img  
+              className="solarSystem__venera"
+              alt="venera IMG"
+              src={venera}/>
           </div>
           
+          <div className="solarSystem__earthTrack"> </div>
+          <div className="solarSystem__earthContainer">
+            <img  
+              className="solarSystem__earth"
+              alt="venera IMG"
+              src={earth}/>
+          </div>
+
+          <div className="solarSystem__marsTrack"> </div>
+          <div className="solarSystem__marsContainer">
+            <img  
+              className="solarSystem__mars"
+              alt="venera IMG"
+              src={mars}/>
+          </div>
+          <div className="solarSystem__jupiterTrack"> </div>
+          <div className="solarSystem__jupiterContainer">
+            <img  
+              className="solarSystem__jupiter"
+              alt="jupiter IMG"
+              src={jupiter}/>
+          </div>
+          <div className="solarSystem__saturnTrack"> </div>
+          <div className="solarSystem__saturnContainer">
+            <img  
+              className="solarSystem__saturn"
+              alt="saturn IMG"
+              src={saturn}/>
+          </div>
+          <div className="solarSystem__uranusTrack"> </div>
+          <div className="solarSystem__uranusContainer">
+            <img  
+              className="solarSystem__uranus"
+              alt="uranus IMG"
+              src={uranus}/>
+          </div>
+          <div className="solarSystem__neptunTrack"> </div>
+          <div className="solarSystem__neptunContainer">
+            <img  
+              className="solarSystem__neptun"
+              alt="neptun IMG"
+              src={neptun}/>
+          </div>
+
           {this.state.asteroids.map( asteroid => 
             <>
               <img  
-                className="asteroidContainer__asteroid"
+                className="solarSystem__asteroid"
                 style={{left: asteroid[0][0], top: asteroid[0][1]}}
                 alt="asteroid IMG"
                 src={asteroidIMG}/>
               {asteroid.slice(1).map( item =>
-                <div className="asteroidContainer__track" style={{left: item[0] + 5, top: item[1] + 5}}></div>
+                <div className="solarSystem__track" style={{left: item[0] + 5, top: item[1] + 5}}></div>
               )}
             </>
           )}
