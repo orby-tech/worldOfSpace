@@ -118,12 +118,14 @@ class PRESolarSystem extends Component{
       <div className="solarSystem">
           <img  
             className="solarSystem__sun"
+            title="Солнышко"
             alt="earth IMG"
             src={sun}/>
           <div className="solarSystem__mercuryTrack"> </div>
           <div className="solarSystem__mercuryContainer">
             <img  
               className="solarSystem__mercury"
+              title="Меркурий"
               alt="mercury IMG"
               src={mercury}/>
           </div>
@@ -133,6 +135,7 @@ class PRESolarSystem extends Component{
           <div className="solarSystem__veneraContainer">
             <img  
               className="solarSystem__venera"
+              title="Венера"
               alt="venera IMG"
               src={venera}/>
           </div>
@@ -141,6 +144,7 @@ class PRESolarSystem extends Component{
           <div className="solarSystem__earthContainer">
             <img  
               className="solarSystem__earth"
+              title="Земля"
               alt="venera IMG"
               src={earth}/>
           </div>
@@ -149,6 +153,7 @@ class PRESolarSystem extends Component{
           <div className="solarSystem__marsContainer">
             <img  
               className="solarSystem__mars"
+              title="Марс"
               alt="venera IMG"
               src={mars}/>
           </div>
@@ -156,6 +161,7 @@ class PRESolarSystem extends Component{
           <div className="solarSystem__jupiterContainer">
             <img  
               className="solarSystem__jupiter"
+              title="Юпитер"
               alt="jupiter IMG"
               src={jupiter}/>
           </div>
@@ -163,6 +169,7 @@ class PRESolarSystem extends Component{
           <div className="solarSystem__saturnContainer">
             <img  
               className="solarSystem__saturn"
+              title="Сатурн"
               alt="saturn IMG"
               src={saturn}/>
           </div>
@@ -170,6 +177,7 @@ class PRESolarSystem extends Component{
           <div className="solarSystem__uranusContainer">
             <img  
               className="solarSystem__uranus"
+              title="Уран"
               alt="uranus IMG"
               src={uranus}/>
           </div>
@@ -177,6 +185,7 @@ class PRESolarSystem extends Component{
           <div className="solarSystem__neptunContainer">
             <img  
               className="solarSystem__neptun"
+              title="Нептун"
               alt="neptun IMG"
               src={neptun}/>
           </div>
@@ -185,6 +194,7 @@ class PRESolarSystem extends Component{
             <>
               <img  
                 className="solarSystem__asteroid"
+                title="Астероид"
                 style={{left: asteroid[0][0], top: asteroid[0][1]}}
                 alt="asteroid IMG"
                 src={asteroidIMG}/>

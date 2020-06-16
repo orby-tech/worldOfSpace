@@ -36,14 +36,14 @@ class PREConstructorStarSystem extends Component{
         this.setState({stars: arr})
         setTimeout(() => {
           this.coordinatsUpdate()
-        }, 1);    
+        }, 100);    
     }
     componentDidMount(){
 
       this.countCenterOfMass()
       setTimeout(() => {
         this.coordinatsUpdate()
-      }, 1);
+      }, 1000);
 
       document.addEventListener("click", this.newStar);
     }
@@ -108,9 +108,11 @@ class PREConstructorStarSystem extends Component{
               <>
                 <img  
                   className="constructorOfStarSystem__star"
+                  title="Звезда класса G"
                   style={{left: star[0], top: star[1]}}
                   alt="sun IMG"
                   src={sun}/>
+               
                 
               </>
             )}
