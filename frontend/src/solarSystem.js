@@ -76,28 +76,34 @@ class PRESolarSystem extends Component{
     let i = 0;
     let self = this
     setInterval(function() {
-      document.querySelector('.solarSystem__sun').style.transform = 'rotate(' + (-i/150) + 'rad)';
-      document.querySelector('.solarSystem__mercuryContainer').style.transform = 'rotate(' + (-i/36) + 'rad)';
-      document.querySelector('.solarSystem__veneraContainer').style.transform = 'rotate(' + (-i/92.5) + 'rad)';
-      document.querySelector('.solarSystem__earthContainer').style.transform = 'rotate(' + (-i/150) + 'rad)';
-      document.querySelector('.solarSystem__marsContainer').style.transform = 'rotate(' + (-i/282) + 'rad)';
-      document.querySelector('.solarSystem__jupiterContainer').style.transform = 'rotate(' + (-i/1800) + 'rad)';
-      document.querySelector('.solarSystem__saturnContainer').style.transform = 'rotate(' + (-i/4500 - 2.5) + 'rad)';
-      document.querySelector('.solarSystem__uranusContainer').style.transform = 'rotate(' + (-i/12600 - 2.6) + 'rad)';
-      document.querySelector('.solarSystem__neptunContainer').style.transform = 'rotate(' + (-i/24750 - 2.6) + 'rad)';
-
-      document.querySelector('.solarSystem__mercury').style.transform = 'rotate(' + (-i/72) + 'rad)';
-      document.querySelector('.solarSystem__venera').style.transform = 'rotate(' + (-i/19.25) + 'rad)';
-      document.querySelector('.solarSystem__earth').style.transform = 'rotate(' + (-i/55) + 'rad)';
-      document.querySelector('.solarSystem__mars').style.transform = 'rotate(' + (-i/56) + 'rad)';
-      document.querySelector('.solarSystem__jupiter').style.transform = 'rotate(' + (i/1800 + 0.5) + 'rad)';
-      document.querySelector('.solarSystem__saturn').style.transform = 'rotate(' + (-0.2 + i/4500) + 'rad)';
-      self.coordinatsUpdate(i)
-      i++
-      if ( i/150/36/92.5 > 2*Math.PI){
-        i -= 2*Math.PI*150*36*92.5
+      try {
+        document.querySelector('.solarSystem__sun').style.transform = 'rotate(' + (-i/150) + 'rad)';
+        document.querySelector('.solarSystem__mercuryContainer').style.transform = 'rotate(' + (-i/36) + 'rad)';
+        document.querySelector('.solarSystem__veneraContainer').style.transform = 'rotate(' + (-i/92.5) + 'rad)';
+        document.querySelector('.solarSystem__earthContainer').style.transform = 'rotate(' + (-i/150) + 'rad)';
+        document.querySelector('.solarSystem__marsContainer').style.transform = 'rotate(' + (-i/282) + 'rad)';
+        document.querySelector('.solarSystem__jupiterContainer').style.transform = 'rotate(' + (-i/1800) + 'rad)';
+        document.querySelector('.solarSystem__saturnContainer').style.transform = 'rotate(' + (-i/4500 - 2.5) + 'rad)';
+        document.querySelector('.solarSystem__uranusContainer').style.transform = 'rotate(' + (-i/12600 - 2.6) + 'rad)';
+        document.querySelector('.solarSystem__neptunContainer').style.transform = 'rotate(' + (-i/24750 - 2.6) + 'rad)';
+  
+        document.querySelector('.solarSystem__mercury').style.transform = 'rotate(' + (-i/72) + 'rad)';
+        document.querySelector('.solarSystem__venera').style.transform = 'rotate(' + (-i/19.25) + 'rad)';
+        document.querySelector('.solarSystem__earth').style.transform = 'rotate(' + (-i/55) + 'rad)';
+        document.querySelector('.solarSystem__mars').style.transform = 'rotate(' + (-i/56) + 'rad)';
+        document.querySelector('.solarSystem__jupiter').style.transform = 'rotate(' + (i/1800 + 0.5) + 'rad)';
+        document.querySelector('.solarSystem__saturn').style.transform = 'rotate(' + (-0.2 + i/4500) + 'rad)';
+        self.coordinatsUpdate(i)
+        i++
+        if ( i/150/36/92.5 > 2*Math.PI){
+          i -= 2*Math.PI*150*36*92.5
+        }
       }
-    }, 10);
+      finally {
+
+      }
+      
+    }, 1);
     document.addEventListener("click", this.asteroidsMove);
   }
 
@@ -187,6 +193,8 @@ class PRESolarSystem extends Component{
               )}
             </>
           )}
+          
+
       </div>
     );
   }

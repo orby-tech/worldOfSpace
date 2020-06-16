@@ -4,6 +4,7 @@ import  './App.css';
 import  NavBar  from './NavBar'
 import  Footer   from './Footer'
 
+import  Start   from './Start'
 import  EarthSistem   from './earthSistem'
 import  SolarSystem   from './solarSystem'
 import  ConstructorStarSystem from './constructorOfStarSystem'
@@ -34,7 +35,8 @@ function App() {
     <div className="App">
         <Provider store={store}>
         <BrowserRouter>
-          <Route exact component={NavBar}/>
+          <Route path="/:id" exact component={NavBar}/>
+          <Route path="/" exact component={Start} />
           <Route path="/earth" exact component={EarthSistem} />
           <Route path="/solarsystem" exact component={SolarSystem} />
           <Route path="/constructorOfStarSystem" exact component={ConstructorStarSystem} />

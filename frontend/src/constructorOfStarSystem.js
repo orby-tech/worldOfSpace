@@ -1,7 +1,6 @@
 import React, { Component ,Link }  from 'react';
 import  { connect } from 'react-redux'
 import  sun from "./img/sun.png";
-import  rocket from "./img/rocket.png";
 const a =  3
 let center = []
 let stars = [[120, 120, 1, 0, 0], [130, 130, 1, 0, 0], [140, 140, 1, 0, 0], [410, 410, 1, 0, 0], [420, 420, 1, 0, 0]]
@@ -115,13 +114,7 @@ class PREConstructorStarSystem extends Component{
                 
               </>
             )}
-            <a href="/">
-            <img  
-                  className="exit"
-                  to="asteroids"
-                  alt="exit IMG"
-                  src={rocket}/>
-            </a>
+
 
         </div>
       );

@@ -2,6 +2,7 @@ import React, { Component }  from 'react';
 
 import  { connect } from 'react-redux'
 
+import  rocket from "./img/rocket.png";
 
 class PRENavBar extends Component{
   constructor(props) {
@@ -33,8 +34,15 @@ class PRENavBar extends Component{
 
   render() {
     return(   
-          <nav className="navbar navbar-light transparent-nav" id="navBar">
+          <nav>
             
+            <a href="/">
+            <img  
+                  className="exit"
+                  to="asteroids"
+                  alt="exit IMG"
+                  src={rocket}/>
+            </a>
         </nav>
     );
   }
