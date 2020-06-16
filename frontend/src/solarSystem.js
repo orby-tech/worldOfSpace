@@ -74,9 +74,9 @@ class PRESolarSystem extends Component{
   }
   componentDidMount(){
     let i = 0;
-    let self = this
-    setInterval(function() {
-      try {
+    let intervalId = 0
+    intervalId = setInterval(() => {
+      if(document.querySelector('.solarSystem__sun')) {
         document.querySelector('.solarSystem__sun').style.transform = 'rotate(' + (-i/150) + 'rad)';
         document.querySelector('.solarSystem__mercuryContainer').style.transform = 'rotate(' + (-i/36) + 'rad)';
         document.querySelector('.solarSystem__veneraContainer').style.transform = 'rotate(' + (-i/92.5) + 'rad)';
@@ -93,15 +93,16 @@ class PRESolarSystem extends Component{
         document.querySelector('.solarSystem__mars').style.transform = 'rotate(' + (-i/56) + 'rad)';
         document.querySelector('.solarSystem__jupiter').style.transform = 'rotate(' + (i/1800 + 0.5) + 'rad)';
         document.querySelector('.solarSystem__saturn').style.transform = 'rotate(' + (-0.2 + i/4500) + 'rad)';
-        self.coordinatsUpdate(i)
+        this.coordinatsUpdate(i)
         i++
         if ( i/150/36/92.5 > 2*Math.PI){
           i -= 2*Math.PI*150*36*92.5
         }
+      } else {
+        clearInterval(intervalId)
       }
-      finally {
 
-      }
+      
       
     }, 1);
     document.addEventListener("click", this.asteroidsMove);
@@ -117,14 +118,14 @@ class PRESolarSystem extends Component{
     return(   
       <div className="solarSystem">
           <img  
-            className="solarSystem__sun"
+            className="spaceObject solarSystem__sun"
             title="Солнышко"
             alt="earth IMG"
             src={sun}/>
           <div className="solarSystem__mercuryTrack"> </div>
           <div className="solarSystem__mercuryContainer">
             <img  
-              className="solarSystem__mercury"
+              className="spaceObject solarSystem__mercury"
               title="Меркурий"
               alt="mercury IMG"
               src={mercury}/>
@@ -134,7 +135,7 @@ class PRESolarSystem extends Component{
           <div className="solarSystem__veneraTrack"> </div>
           <div className="solarSystem__veneraContainer">
             <img  
-              className="solarSystem__venera"
+              className="spaceObject solarSystem__venera"
               title="Венера"
               alt="venera IMG"
               src={venera}/>
@@ -143,7 +144,7 @@ class PRESolarSystem extends Component{
           <div className="solarSystem__earthTrack"> </div>
           <div className="solarSystem__earthContainer">
             <img  
-              className="solarSystem__earth"
+              className="spaceObject solarSystem__earth"
               title="Земля"
               alt="venera IMG"
               src={earth}/>
@@ -152,7 +153,7 @@ class PRESolarSystem extends Component{
           <div className="solarSystem__marsTrack"> </div>
           <div className="solarSystem__marsContainer">
             <img  
-              className="solarSystem__mars"
+              className="spaceObject solarSystem__mars"
               title="Марс"
               alt="venera IMG"
               src={mars}/>
@@ -160,7 +161,7 @@ class PRESolarSystem extends Component{
           <div className="solarSystem__jupiterTrack"> </div>
           <div className="solarSystem__jupiterContainer">
             <img  
-              className="solarSystem__jupiter"
+              className="spaceObject solarSystem__jupiter"
               title="Юпитер"
               alt="jupiter IMG"
               src={jupiter}/>
@@ -168,7 +169,7 @@ class PRESolarSystem extends Component{
           <div className="solarSystem__saturnTrack"> </div>
           <div className="solarSystem__saturnContainer">
             <img  
-              className="solarSystem__saturn"
+              className="spaceObject solarSystem__saturn"
               title="Сатурн"
               alt="saturn IMG"
               src={saturn}/>
@@ -176,7 +177,7 @@ class PRESolarSystem extends Component{
           <div className="solarSystem__uranusTrack"> </div>
           <div className="solarSystem__uranusContainer">
             <img  
-              className="solarSystem__uranus"
+              className="spaceObject solarSystem__uranus"
               title="Уран"
               alt="uranus IMG"
               src={uranus}/>
@@ -184,7 +185,7 @@ class PRESolarSystem extends Component{
           <div className="solarSystem__neptunTrack"> </div>
           <div className="solarSystem__neptunContainer">
             <img  
-              className="solarSystem__neptun"
+              className="spaceObject solarSystem__neptun"
               title="Нептун"
               alt="neptun IMG"
               src={neptun}/>
@@ -193,7 +194,7 @@ class PRESolarSystem extends Component{
           {this.state.asteroids.map( asteroid => 
             <>
               <img  
-                className="solarSystem__asteroid"
+                className="spaceObject solarSystem__asteroid"
                 title="Астероид"
                 style={{left: asteroid[0][0], top: asteroid[0][1]}}
                 alt="asteroid IMG"

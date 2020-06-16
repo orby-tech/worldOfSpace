@@ -3,6 +3,7 @@ import React, { Component }  from 'react';
 import  { connect } from 'react-redux'
 
 import  rocket from "./img/rocket.png";
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 
 class PRENavBar extends Component{
   constructor(props) {
@@ -36,13 +37,14 @@ class PRENavBar extends Component{
     return(   
           <nav>
             
-            <a href="/">
+            <Link to="/">
             <img  
                   className="exit"
-                  to="asteroids"
+                  title="Вернуться на космодром!"
+                  to="/"
                   alt="exit IMG"
                   src={rocket}/>
-            </a>
+            </Link>
         </nav>
     );
   }

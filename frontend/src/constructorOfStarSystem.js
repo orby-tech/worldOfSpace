@@ -3,7 +3,7 @@ import  { connect } from 'react-redux'
 import  sun from "./img/sun.png";
 const a =  3
 let center = []
-let stars = [[120, 120, 1, 0, 0], [130, 130, 1, 0, 0], [140, 140, 1, 0, 0], [410, 410, 1, 0, 0], [420, 420, 1, 0, 0]]
+let stars = [[120, 120, 1, 0, 0], [140, 140, 1, 0, 0]]
 class PREConstructorStarSystem extends Component{
     constructor(props){
       super(props);
@@ -36,7 +36,7 @@ class PREConstructorStarSystem extends Component{
         this.setState({stars: arr})
         setTimeout(() => {
           this.coordinatsUpdate()
-        }, 100);    
+        }, 1);    
     }
     componentDidMount(){
 
@@ -107,7 +107,7 @@ class PREConstructorStarSystem extends Component{
             {this.state.stars.map( star => 
               <>
                 <img  
-                  className="constructorOfStarSystem__star"
+                  className="spaceObject constructorOfStarSystem__star"
                   title="Звезда класса G"
                   style={{left: star[0], top: star[1]}}
                   alt="sun IMG"

@@ -65,14 +65,18 @@ class PREEarthSistem extends Component{
   }
   componentDidMount(){
     let i = 0;
-    let self = this
-    setInterval(function() {
-      document.querySelector('.asteroidContainer__earth').style.transform = 'rotate(' + (-i/5) + 'rad)';
-      document.querySelector('.asteroidContainer__moonContainer').style.transform = 'rotate(' + (-i/150) + 'rad)';
-      self.coordinatsUpdate(i)
-      i++
-      if ( i/150 > 2*Math.PI){
-        i -= 2*Math.PI*150
+    let intervalIdEarthSystem = 0
+    intervalIdEarthSystem = setInterval(() => {
+      if(document.querySelector('.asteroidContainer__earth')) {
+        document.querySelector('.asteroidContainer__earth').style.transform = 'rotate(' + (-i/5) + 'rad)';
+        document.querySelector('.asteroidContainer__moonContainer').style.transform = 'rotate(' + (-i/150) + 'rad)';
+        this.coordinatsUpdate(i)
+        i++
+        if ( i/150 > 2*Math.PI){
+          i -= 2*Math.PI*150
+        }
+      }else{
+        clearInterval(intervalIdEarthSystem)
       }
     }, 33);
     document.addEventListener("click", this.asteroidsMove);
