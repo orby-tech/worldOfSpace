@@ -196,6 +196,7 @@ body {
 
 
 
+
 .solarSystem__veneraTrack {
   position: fixed;
   left: 309px;
@@ -279,6 +280,15 @@ body {
   height: 417px;
   border: 2px solid rgba(65, 56, 109, 0.95);
   border-radius: 100%;
+}
+
+
+
+
+.exit {
+  width: 60px;
+  position: relative;
+  z-index: 999999;
 }
 
 

@@ -1,10 +1,10 @@
-import React, { Component }  from 'react';
+import React, { Component ,Link }  from 'react';
 import  { connect } from 'react-redux'
 import  sun from "./img/sun.png";
-
+import  rocket from "./img/rocket.png";
 const a =  3
 let center = []
-let stars = [[120, 120, 1, 0, 0], [420, 420, 1, 0, 0]]
+let stars = [[120, 120, 1, 0, 0], [130, 130, 1, 0, 0], [140, 140, 1, 0, 0], [410, 410, 1, 0, 0], [420, 420, 1, 0, 0]]
 class PREConstructorStarSystem extends Component{
     constructor(props){
       super(props);
@@ -24,7 +24,7 @@ class PREConstructorStarSystem extends Component{
       return asteroid
     }
   
-    coordinatsUpdate(tick) {
+    coordinatsUpdate() {
         let arr = stars
         let centerX = center[0]
         let centerY = center[1]
@@ -35,16 +35,15 @@ class PREConstructorStarSystem extends Component{
         }
         stars = arr
         this.setState({stars: arr})
-      
+        setTimeout(() => {
+          this.coordinatsUpdate()
+        }, 1);    
     }
     componentDidMount(){
 
       this.countCenterOfMass()
-      let i = 0;
-      let self = this
-      let timer = setInterval(() => {
-        this.coordinatsUpdate(i)
-        i++
+      setTimeout(() => {
+        this.coordinatsUpdate()
       }, 1);
 
       document.addEventListener("click", this.newStar);
@@ -74,11 +73,14 @@ class PREConstructorStarSystem extends Component{
         arr[i][4] = Math.abs(Math.atan ( (arr[i][1] - centerY)/(arr[i][0] - centerX)))
         if( arr[i][0] - centerX > 0 && arr[i][1] - centerY > 0 ){
             arr[i][4] += Math.PI / 2 * 3
-        } else if( arr[i][0] - centerX < 0 && arr[i][1] - centerY < 0 ){
+        } 
+        if( arr[i][0] - centerX < 0 && arr[i][1] - centerY < 0 ){
             arr[i][4] += Math.PI / 2
-        } else if( arr[i][0] - centerX < 0  && arr[i][1] - centerY > 0 ){
+        }
+        if( arr[i][0] - centerX < 0  && arr[i][1] - centerY > 0 ){
             arr[i][4] += Math.PI
-        } else if( arr[i][0] - centerX > 0  &&  arr[i][1] - centerY < 0 ){
+        } 
+        if( arr[i][0] - centerX > 0  &&  arr[i][1] - centerY < 0 ){
             arr[i][4] += 0
         }    
         arr[i][4] += Math.PI / 2     
@@ -113,7 +115,14 @@ class PREConstructorStarSystem extends Component{
                 
               </>
             )}
-            <button></button>
+            <a href="/">
+            <img  
+                  className="exit"
+                  to="asteroids"
+                  alt="exit IMG"
+                  src={rocket}/>
+            </a>
+
         </div>
       );
     }
