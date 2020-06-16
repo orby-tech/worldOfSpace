@@ -179,6 +179,21 @@ body {
   width: 15px;
 }
 
+.constructorOfStarSystem__changer {
+  position: fixed;
+  right: 0px;
+  top: 0px;
+  height: 100%;
+  width: 300px;
+  background: rgba(39, 23, 63, 0.7);
+}
+
+.constructorOfStarSystem__changerItem {
+  height: 40px;
+  width: 260px;
+  background: rgba(39, 23, 63, 0.7);
+}
+
 .spaceObject:hover {
   width: 90px;
   position: absolute;
