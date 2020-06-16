@@ -172,6 +172,10 @@ body {
 
 
 
+.constructorOfStarSystem__star {
+  position: fixed;
+  width: 15px;
+}
 
 
 .solarSystem__moon { 

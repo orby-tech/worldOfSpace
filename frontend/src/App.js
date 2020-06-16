@@ -6,6 +6,7 @@ import  Footer   from './Footer'
 
 import  EarthSistem   from './earthSistem'
 import  SolarSystem   from './solarSystem'
+import  ConstructorStarSystem from './constructorOfStarSystem'
 
 
 
@@ -34,8 +35,9 @@ function App() {
         <Provider store={store}>
         <BrowserRouter>
           <Route exact component={NavBar}/>
-          <Route path="/asteroids" exact component={EarthSistem} />
+          <Route path="/earth" exact component={EarthSistem} />
           <Route path="/solarsystem" exact component={SolarSystem} />
+          <Route path="/constructorOfStarSystem" exact component={ConstructorStarSystem} />
 
           <div className="alt__footer"></div>
         </BrowserRouter>
