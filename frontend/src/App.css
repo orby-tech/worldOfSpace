@@ -173,12 +173,17 @@ body {
 }
 
 
-
+.constructorOfStarSystem__container {
+}
 .constructorOfStarSystem__star {
   position: fixed;
   width: 15px;
 }
-
+.constructorOfStarSystem__map {
+  height: 100%;
+  position: fixed;
+  right: 300px;
+}
 .constructorOfStarSystem__changer {
   position: fixed;
   right: 0px;
@@ -189,11 +194,28 @@ body {
 }
 
 .constructorOfStarSystem__changerItem {
-  height: 40px;
+  height: 80px;
   width: 260px;
+  color: rgb(233, 198, 198);
   background: rgba(39, 23, 63, 0.7);
+  display: grid;
+  vertical-align: center;
+  grid-template-columns: auto 80px;
 }
-
+.constructorOfStarSystem__changerItemSelected {
+  height: 80px;
+  width: 260px;
+  color: rgb(233, 198, 198);
+  background: rgba(120, 104, 145, 0.7);
+  display: grid;
+  vertical-align: center;
+  grid-template-columns: auto 80px;
+}
+.constructorOfStarSystem__changerItemText{
+  padding-left: 10px;
+  margin-top: auto;
+  margin-bottom: auto;
+}
 .spaceObject:hover {
   width: 90px;
   position: absolute;

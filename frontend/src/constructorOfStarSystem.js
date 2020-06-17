@@ -1,23 +1,42 @@
 import React, { Component ,Link }  from 'react';
 import  { connect } from 'react-redux'
 import  sun from "./img/sun.png";
+import  blackHole from "./img/blackHole.png";
+import  AClassStar from "./img/AClassStar.png";
+import  OClassStar from "./img/OClassStar.png";
+import  Cvasar from "./img/cvasar.png";
+
 const a =  3
+
+function sortByMass(a, b){
+  return -(a[2] - b[2])
+  }
 class PREConstructorStarSystem extends Component{
 
     constructor(props){
       super(props);
       
       this.newStar = this.newStar.bind(this)
-
+      let listOfSpaceObjects = [
+        {text: "Квазар", link: Cvasar, massID: 800 },
+        {text: "Черная дыра", link: blackHole, massID: 36 },
+        {text: "Звезда класса G", link: sun, massID: 3},
+        {text: "Звезда класса A", link: AClassStar, massID: 9},
+        {text: "Звезда класса O", link: OClassStar, massID: 12}
+      ]
 
       this.center = []
-      this.stars = [[220, 220, 3, 0, 0], [420, 420, 1, -0.1, 0]]
+      this.stars = [
+        [220, 220, 3, 0, 0, sun], 
+        [420, 420, 1, -0.1, 0, blackHole]
+      ]
       this.timer = 0 
       this.state = {
         work: true,
         stars: [[120, 120, 1, 10, 10], [140, 140, 1, 1, 1]],
         tick: 1,
-        
+        listOfSpaceObjects: listOfSpaceObjects,
+        selectedItem: {text: "Звезда класса G", link: sun, massID: 3}
       }
   
     }
@@ -45,7 +64,21 @@ class PREConstructorStarSystem extends Component{
               let mass = arr[i][2] + arr[j][2]
               let x = (arr[i][3] * arr[i][2] + arr[j][3] * arr[j][2]) / mass
               let y = (arr[i][4] * arr[i][2] + arr[j][4] * arr[j][2]) / mass
-              arr[i] = [ arr[i][0], arr[i][1], mass, x, y ]
+              let link = 1
+              if (mass > 800) {
+                link = Cvasar
+              } else if (mass > 72) {
+                link = blackHole
+              } else if (mass > 12) {
+                link = OClassStar
+              } else if (mass > 9) {
+                link = AClassStar
+              }else if (mass > 3) {
+                link = sun
+              } else if (mass > 1) {
+                link = 1
+              }
+              arr[i] = [ arr[i][0], arr[i][1], mass, x, y , link ]
               arr[j] = [null, null, 1, null, null]
             } 
           }
@@ -60,6 +93,7 @@ class PREConstructorStarSystem extends Component{
             tempArr.push(arr[i])
           }
         }
+        tempArr.sort(sortByMass)
         this.stars = tempArr
         this.setState({stars: tempArr})
          
@@ -79,35 +113,84 @@ class PREConstructorStarSystem extends Component{
 
     newStar(event) {
       clearInterval(this.timer)
-        let arr = this.stars
-        arr.push([event.x, event.y, 3, (Math.random() - 0.5) / 10 , (Math.random() - 0.5) / 10])
-        this.stars = arr
+        if( window.innerWidth - event.x > 300 ) {
+          let arr = this.stars
+          arr.push([
+            event.x, 
+            event.y, 
+            this.state.selectedItem.massID, 
+            (Math.random() - 0.5) / 10 , 
+            (Math.random() - 0.5) / 10, 
+            this.state.selectedItem.link])
+          this.stars = arr
+        }
+ 
         this.timer = setInterval(() => {
           this.coordinatsUpdate()
         }, 1);
         
     }
-  
+    changeObject (object) {
+      this.setState({ selectedItem: object})
+
+    }
+    selectedItem (item) {
+      if(item === this.state.selectedItem.massID) {
+        return "constructorOfStarSystem__changerItemSelected"
+      } else {
+        return "constructorOfStarSystem__changerItem"
+      }
+
+    }
+    styleOfObject(mass) {
+      if (mass >= 800) {
+        return 150
+      } else if (mass >= 72) {
+        return 40
+      } else if (mass >= 12) {
+        return 30
+      } else if (mass >= 9) {
+        return 20
+      }else if (mass >= 3) {
+        return 15
+      } else if (mass >= 1) {
+        return 10
+      }
+    }
     render() {
       return(   
-        <div className="asteroidContainer">
-            
+        <div className="constructorOfStarSystem__container">
+          <div  className="constructorOfStarSystem__map">
             {this.state.stars.map( star => 
               <>
                 <img  
-                  className="spaceObject constructorOfStarSystem__star"
+                  className="constructorOfStarSystem__star"
                   title="Звезда класса G"
-                  style={{left: star[0], top: star[1], width: Math.cos(star[2] / 200) * 10 }}
+                  style={{left: star[0], top: star[1], width: this.styleOfObject(star[2])   }}
                   alt="sun IMG"
-                  src={sun}/>
-                <div className="constructorOfStarSystem__changer">
-                  <div className="constructorOfStarSystem__changerItem">
-
-                  </div>
-                </div>
-                
+                  src={star[5]}/>
               </>
             )}
+
+          </div>
+   
+          <div className="constructorOfStarSystem__changer">
+
+            {this.state.listOfSpaceObjects.map( object =>               
+              <div className={this.selectedItem(object.massID)} onClick={() =>this.changeObject(object)}>
+                <div className="constructorOfStarSystem__changerItemText">{ object.text }</div>
+                <div>
+                  <img  
+                    style={{ width: 80 }}
+                    alt="sun IMG"
+                    src={object.link}/>
+                </div>
+
+              </div>            
+              )}  
+          </div>
+                
+      
 
 
         </div>
