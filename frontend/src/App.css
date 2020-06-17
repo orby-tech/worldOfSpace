@@ -335,6 +335,19 @@ body {
   border-radius: 100%;
 }
 
+.moonPanoram__imgContainer {
+  position: relative;
+  float:left;
+	overflow:hidden; /* this is important */
+  width: 450px;
+  height: 400px;
+}
+.moonPanoram__img {
+  height: 300px;
+  position: absolute;
+}
+
+
 
 
 
