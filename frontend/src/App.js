@@ -8,6 +8,7 @@ import  Start   from './Start'
 import  EarthSistem   from './earthSistem'
 import  SolarSystem   from './solarSystem'
 import  ConstructorStarSystem from './constructorOfStarSystem'
+import  MoonPanoram from './moonPanoram'
 
 
 
@@ -40,7 +41,7 @@ function App() {
           <Route path="/earth" exact component={EarthSistem} />
           <Route path="/solarsystem" exact component={SolarSystem} />
           <Route path="/constructorOfStarSystem" exact component={ConstructorStarSystem} />
-
+          <Route path="/moonpanoram" exact component={MoonPanoram} />
           <div className="alt__footer"></div>
         </BrowserRouter>
         </Provider>
