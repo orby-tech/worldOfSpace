@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import  sun from "./img/sun.png";
 import  rocket from "./img/rocket.png";
 import  earth from "./img/earth.png";
+import  moon from "./img/moonPre.png";
 class PREStart extends Component{
     constructor(props){
       super(props);
@@ -49,7 +50,18 @@ class PREStart extends Component{
                             alt="exit IMG"
                             src={sun}></img>
                   </Link>
-                </li>                           
+                </li>     
+                <li className="nav-item" id="navBar">
+                  <Link 
+                        className="nav-link"
+                        to="/moonpanoram"> Лунная панорама из Чанъе-3
+                        <img
+                            className="start__IMGItem"
+                            style={{transform: "rotate(0deg)"}}
+                            alt="exit IMG"
+                            src={moon}></img>
+                  </Link>
+                </li>                         
               </ul>
         </div>
       );
