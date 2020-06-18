@@ -1,6 +1,17 @@
 @import  'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css';
 
+img {
+  -moz-user-select: none; 
+  -webkit-user-select: none; 
+  -ms-user-select: none; 
+  user-select: none;
+}
+
 body {
+  -moz-user-select: none; 
+  -webkit-user-select: none; 
+  -ms-user-select: none; 
+  user-select: none;
   background-color: #020a16;
   background-image: url(./img/space2.png);
 }
@@ -359,6 +370,38 @@ body {
   top: 10px;
   z-index: 999999;
 }
+
+
+
+.curiosity__map {
+  position: fixed;
+  z-index: 0;
+  transform: translate(-50%, -50%)
+}
+
+.curiosity__track {
+  position: fixed;
+  z-index: 0;
+  transform: translate(-50%, -50%)
+  
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -9,7 +9,7 @@ import  EarthSistem   from './earthSistem'
 import  SolarSystem   from './solarSystem'
 import  ConstructorStarSystem from './constructorOfStarSystem'
 import  MoonPanoram from './moonPanoram'
-
+import  Curiosity from './Curiosity'
 
 
 import  { Route }       from 'react-router-dom';
@@ -42,6 +42,7 @@ function App() {
           <Route path="/solar_system" exact component={SolarSystem} />
           <Route path="/constructor_Of_Star_System" exact component={ConstructorStarSystem} />
           <Route path="/moon_panoram" exact component={MoonPanoram} />
+          <Route path="/mars_rider" exact component={Curiosity} />
           <div className="alt__footer"></div>
         </BrowserRouter>
         </Provider>

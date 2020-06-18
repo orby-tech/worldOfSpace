@@ -6,6 +6,7 @@ import  sun from "./img/sun.png";
 import  rocket from "./img/rocket.png";
 import  earth from "./img/earth.png";
 import  moon from "./img/moonPre.png";
+import curiosity from "./img/marsCuriosity/curiosity.png";
 class PREStart extends Component{
     constructor(props){
       super(props);
@@ -60,6 +61,17 @@ class PREStart extends Component{
                             style={{transform: "rotate(0deg)"}}
                             alt="exit IMG"
                             src={moon}></img>
+                  </Link>
+                </li>  
+                <li className="nav-item" id="navBar">
+                  <Link 
+                        className="nav-link"
+                        to="/mars_rider"> Управление Curiosity
+                        <img
+                            className="start__IMGItem"
+                            style={{transform: "rotate(0deg)", backgroundColor:"rgba(65, 56, 109, 0.3)"}}
+                            alt="exit IMG"
+                            src={curiosity}></img>
                   </Link>
                 </li>                         
               </ul>
