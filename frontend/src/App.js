@@ -10,7 +10,7 @@ import  SolarSystem   from './solarSystem'
 import  ConstructorStarSystem from './constructorOfStarSystem'
 import  MoonPanoram from './moonPanoram'
 import  Curiosity from './Curiosity'
-
+import  AudioOfSpace from './AudioOfSpace'
 
 import  { Route }       from 'react-router-dom';
 import  { BrowserRouter } from 'react-router-dom';
@@ -43,6 +43,7 @@ function App() {
           <Route path="/constructor_Of_Star_System" exact component={ConstructorStarSystem} />
           <Route path="/moon_panoram" exact component={MoonPanoram} />
           <Route path="/mars_rider" exact component={Curiosity} />
+          <Route path="/audio_of_space" exact component={AudioOfSpace} />
           <div className="alt__footer"></div>
         </BrowserRouter>
         </Provider>

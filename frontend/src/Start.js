@@ -6,6 +6,7 @@ import  sun from "./img/sun.png";
 import  rocket from "./img/rocket.png";
 import  earth from "./img/earth.png";
 import  moon from "./img/moonPre.png";
+import  music from "./img/music.png";
 import curiosity from "./img/marsCuriosity/curiosity.png";
 class PREStart extends Component{
     constructor(props){
@@ -30,7 +31,19 @@ class PREStart extends Component{
                             alt="exit IMG"
                             src={rocket}></img>
                   </Link>
-                </li>        
+                </li>    
+                <li className="nav-item" id="navBar">
+                  <Link 
+                        className="nav-link"
+                        
+                        to="/audio_of_space"> Как звучит космос
+                        <img
+                            style={{transform: "rotate(0deg)"}}
+                            className="start__IMGItem"
+                            alt="exit IMG"
+                            src={music}></img>
+                  </Link>
+                </li>   
                 <li className="nav-item" id="navBar">
                   <Link 
                         className="nav-link"
