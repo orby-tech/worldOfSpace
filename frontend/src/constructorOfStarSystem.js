@@ -119,8 +119,8 @@ class PREConstructorStarSystem extends Component{
             event.x, 
             event.y, 
             this.state.selectedItem.massID, 
-            (Math.random() - 0.5) / 10 , 
-            (Math.random() - 0.5) / 10, 
+            (Math.random() - 0.5) / 100 , 
+            (Math.random() - 0.5) / 100, 
             this.state.selectedItem.link])
           this.stars = arr
         }

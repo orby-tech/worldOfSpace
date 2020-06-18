@@ -39,9 +39,9 @@ function App() {
           <Route path="/:id" exact component={NavBar}/>
           <Route path="/" exact component={Start} />
           <Route path="/earth" exact component={EarthSistem} />
-          <Route path="/solarsystem" exact component={SolarSystem} />
-          <Route path="/constructorOfStarSystem" exact component={ConstructorStarSystem} />
-          <Route path="/moonpanoram" exact component={MoonPanoram} />
+          <Route path="/solar_system" exact component={SolarSystem} />
+          <Route path="/constructor_Of_Star_System" exact component={ConstructorStarSystem} />
+          <Route path="/moon_panoram" exact component={MoonPanoram} />
           <div className="alt__footer"></div>
         </BrowserRouter>
         </Provider>

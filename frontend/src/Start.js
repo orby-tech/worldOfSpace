@@ -23,7 +23,7 @@ class PREStart extends Component{
                 <li className="nav-item" id="navBar">
                   <Link 
                         className="nav-link"
-                        to="/constructorOfStarSystem"> Конструктор звездной системы
+                        to="/constructor_Of_Star_System"> Конструктор звездной системы
                         <img
                             className="start__IMGItem"
                             alt="exit IMG"
@@ -44,7 +44,7 @@ class PREStart extends Component{
                 <li className="nav-item" id="navBar">
                   <Link 
                         className="nav-link"
-                        to="/solarsystem"> Солнечная система
+                        to="/solar_system"> Солнечная система
                         <img
                             className="start__IMGItem"
                             alt="exit IMG"
@@ -54,7 +54,7 @@ class PREStart extends Component{
                 <li className="nav-item" id="navBar">
                   <Link 
                         className="nav-link"
-                        to="/moonpanoram"> Лунная панорама из Чанъе-3
+                        to="/moon_panoram"> Лунная панорама из Чанъе-3
                         <img
                             className="start__IMGItem"
                             style={{transform: "rotate(0deg)"}}
