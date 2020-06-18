@@ -65,17 +65,17 @@ class PREConstructorStarSystem extends Component{
               let x = (arr[i][3] * arr[i][2] + arr[j][3] * arr[j][2]) / mass
               let y = (arr[i][4] * arr[i][2] + arr[j][4] * arr[j][2]) / mass
               let link = 1
-              if (mass > 800) {
+              if (mass >= 800) {
                 link = Cvasar
-              } else if (mass > 72) {
+              } else if (mass >= 72) {
                 link = blackHole
-              } else if (mass > 12) {
+              } else if (mass >= 12) {
                 link = OClassStar
-              } else if (mass > 9) {
+              } else if (mass >= 9) {
                 link = AClassStar
-              }else if (mass > 3) {
+              }else if (mass >= 3) {
                 link = sun
-              } else if (mass > 1) {
+              } else if (mass >= 1) {
                 link = 1
               }
               arr[i] = [ arr[i][0], arr[i][1], mass, x, y , link ]
@@ -146,9 +146,9 @@ class PREConstructorStarSystem extends Component{
       if (mass >= 800) {
         return 150
       } else if (mass >= 72) {
-        return 40
+        return 20
       } else if (mass >= 12) {
-        return 30
+        return 20
       } else if (mass >= 9) {
         return 20
       }else if (mass >= 3) {

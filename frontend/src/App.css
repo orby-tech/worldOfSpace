@@ -178,6 +178,7 @@ body {
 .constructorOfStarSystem__star {
   position: fixed;
   width: 15px;
+  transform: translate(-50%, -50%)
 }
 .constructorOfStarSystem__map {
   height: 100%;
@@ -201,6 +202,8 @@ body {
   display: grid;
   vertical-align: center;
   grid-template-columns: auto 80px;
+  border-radius: 0, 0, 100%, 100%;
+
 }
 .constructorOfStarSystem__changerItemSelected {
   height: 80px;
@@ -210,6 +213,8 @@ body {
   display: grid;
   vertical-align: center;
   grid-template-columns: auto 80px;
+  border-radius: 0 130px 130px 0;
+
 }
 .constructorOfStarSystem__changerItemText{
   padding-left: 10px;
