@@ -336,17 +336,24 @@ body {
 }
 
 .moonPanoram__imgContainer {
-  position: relative;
-  float:left;
+  position: fixed;
+  left: calc(50% - 170px);
+  top: 120px;
 	overflow:hidden; /* this is important */
-  width: 450px;
+  width: 350px;
   height: 400px;
 }
 .moonPanoram__img {
   height: 300px;
   position: absolute;
 }
-
+.moonPanoram__pc {
+  position: fixed;
+  width: 700px;
+  left: calc(50% - 350px);
+  top: 10px;
+  z-index: 999999;
+}
 
 
 

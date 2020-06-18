@@ -27,6 +27,7 @@ import  img24 from "./img/moonPanoram/24.gif";
 import  img25 from "./img/moonPanoram/25.gif";
 import  img26 from "./img/moonPanoram/26.gif";
 import noise from "./img/moonPanoram/noise.jpeg";
+import pc from "./img/moonPanoram/pc.png";
 class PREMoonPanoram extends Component{
 
     constructor(props){
@@ -38,24 +39,31 @@ class PREMoonPanoram extends Component{
         img19, img20, img21, img22, img23, 
         img24, img25, img26]
       this.state = {
-        img: [0, 0]
+        img: [0, 0],
+        loading: true
       }
   
     }
-    imgAppdate (newImg) {
-      setTimeout(() => {
-                
-      }, 10);
-    }
+
 
     componentDidMount(){
+
+
+      let self = this
+      setInterval(() => {
+        self.setState({loading:true})
+        setTimeout(() => {
+          self.setState({loading:false})
+        }, 5)
+      }, 1200)
+
+      
       document.addEventListener('keydown', (event) => {
+        
         if (event.code === 'ArrowLeft') {
+          this.setState({loading: true})
           let index = this.state.img
-          index[1] -= 1
-          if(index[1] < 0){
-            index[0] -= 1
-            index[1] += 10
+          index[0] -= 1
             if ( index[0] < 0 ) {
               index[0] += this.imgs.length
 
@@ -63,11 +71,14 @@ class PREMoonPanoram extends Component{
             if ( index[0] >= this.imgs.length ) {
               index[0] -= this.imgs.length
             }
-          }
+          setTimeout(() => {
+            self.setState({img: index, loading:false})
+          }, 50)
           
-          this.setState({img: index})
+          
         }
         if (event.code === 'ArrowRight') {
+          this.setState({loading: true})
           let index = this.state.img
           index[0] += 1
           if ( index[0] < 0 ) {
@@ -76,27 +87,44 @@ class PREMoonPanoram extends Component{
           if ( index[0] >= this.imgs.length ) {
             index[0] -= this.imgs.length
           }
-          this.setState({img: index})
+          setTimeout(() => {
+            self.setState({img: index, loading:false})
+          }, 20)
         }
       });
+      this.setState({loading: false})
     }
-    changeIMG(){
-      if(!this.state.imgs){
-        return this.imgs[this.state.img[0]]
+    imgChange(){
+      if(this.state.loading) {
+        return (
+          <img className="moonPanoram__img"
+                title=""
+                alt="IMG"
+                
+                src={noise}/>
+        )
       } else {
-        return noise
+        return (<img className="moonPanoram__img"
+                title=""
+                alt="IMG"
+                
+                src={this.imgs[this.state.img[0]]}/>)
       }
-    }
 
+    }
     render() {
       return(   
-        <div className="moonPanoram__imgContainer">
-          <img className="moonPanoram__img"
-              title="Меркурий"
-              alt="mercury IMG"
-              style={{marginLeft:  -this.state.img[1] * 11}}
-              src={this.changeIMG()}/>
-        </div>
+        <>
+          <img className="moonPanoram__pc"
+            title=""
+            alt="IMG"
+            style={{}}
+            src={pc}/>
+          <div className="moonPanoram__imgContainer">
+    
+          {this.imgChange()}
+          </div>
+        </>
       );
     }
   }
