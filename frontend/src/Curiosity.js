@@ -50,12 +50,19 @@ class PRECuriosity extends Component{
         if (event.code === 'ArrowLeft') {
             this.rotate(-1)
         }
+      });
+      document.addEventListener('keydown', (event) => {
         if (event.code === 'ArrowRight') {
             this.rotate(+1)
         }
+      });
+      document.addEventListener('keydown', (event) => {
+
         if (event.code === 'ArrowDown') {
             this.move(-1)       
         }
+      });
+      document.addEventListener('keydown', (event) => {
         if (event.code === 'ArrowUp') {
             this.move(1)       
         }
