@@ -6,7 +6,7 @@ import  asteroidIMG from "./img/asteroid.png";
 
 const G = 6.674484
 const mEarth = 5.972 * Math.pow(10, 13)
-const mMoon = 7.6 * Math.pow(10, 11 )
+const mMoon = 7.6 * Math.pow(10, 11 ) *2
 const scale = 385000 / 204
 const correctionTime = 0.1
 class PREEarthSistem extends Component{

@@ -16,11 +16,13 @@ body {
 }
 
 .asteroidContainer__earth {
-  position: fixed;
+  position: absolute;
   top: 300px;
   left: 400px;
   width: 40px;
   z-index: 90000;
+  transform: translate(-50%, -50%);
+
 }
 .asteroidContainer__asteroid {
   position: fixed;
@@ -35,11 +37,14 @@ body {
 
   z-index: 90000;
   top: 300px;
-  left: 200px;
+  left: 210px;
   width: 440px;
+
 }
 .asteroidContainer__moon { 
   width: 20px;
+  transform: translate(-50%, -50%);
+
 }
 .asteroidContainer__track {
   position: fixed;
@@ -440,16 +445,20 @@ body {
 .start {
   position: relative;
   font-family: Void;
-  font-size: 130%;
+  font-size: 110%;
   letter-spacing: 0.1em;
   margin-top: 40px;
   padding-bottom: 40px;
-  width: 600px;
+  max-width: 600px;
   margin-left: auto;
   margin-right: auto;
   border-radius: 40px;
   background-color: rgba(102, 95, 95, 0.7);
   padding-right: 60px;
+}
+.start_item{
+  display: grid;
+
 }
 .start__IMGItem {
   position: absolute;

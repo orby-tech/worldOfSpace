@@ -11,6 +11,14 @@ import curiosity from "./img/marsCuriosity/curiosity.png";
 class PREStart extends Component{
     constructor(props){
       super(props);
+      this.items = [
+        {text: "Конструктор звездной системы", link:"/constructor_Of_Star_System", img: rocket },
+        {text: "Как звучит космос", link:"/audio_of_space", img: music },
+        {text: "Земная система", link:"/earth", img: earth },
+        {text: "Солнечная система", link:"/solar_system", img: sun },
+        {text: "Лунная панорама из Чанъе-3", link:"/moon_panoram", img: moon },
+        {text: "Управление Curiosity", link:"/mars_rider", img: curiosity },
+      ]
       this.state = {
       }
   
@@ -22,72 +30,21 @@ class PREStart extends Component{
       return(   
         <div className="start">
             <ul id="logo" className="navbar-nav ml-auto"> 
+              {this.items.map(item => 
                 <li className="nav-item" id="navBar">
                   <Link 
                         className="nav-link"
-                        to="/constructor_Of_Star_System"> Конструктор звездной системы
-                        <img
+                        to={item.link}>
+                          <div className="start_item"> {item.text}
+                          <img
                             className="start__IMGItem"
                             alt="exit IMG"
-                            src={rocket}></img>
-                  </Link>
-                </li>    
-                <li className="nav-item" id="navBar">
-                  <Link 
-                        className="nav-link"
-                        
-                        to="/audio_of_space"> Как звучит космос
-                        <img
-                            style={{transform: "rotate(0deg)"}}
-                            className="start__IMGItem"
-                            alt="exit IMG"
-                            src={music}></img>
-                  </Link>
-                </li>   
-                <li className="nav-item" id="navBar">
-                  <Link 
-                        className="nav-link"
-                        to="/earth"> Земная система
-                        <img
-                            className="start__IMGItem"
-                            alt="exit IMG"
-                            src={earth}></img>
-                  </Link>
-                </li>
-  
-                <li className="nav-item" id="navBar">
-                  <Link 
-                        className="nav-link"
-                        to="/solar_system"> Солнечная система
-                        <img
-                            className="start__IMGItem"
-                            alt="exit IMG"
-                            src={sun}></img>
-                  </Link>
-                </li>     
-                <li className="nav-item" id="navBar">
-                  <Link 
-                        className="nav-link"
-                        to="/moon_panoram"> Лунная панорама из Чанъе-3
-                        <img
-                            className="start__IMGItem"
-                            style={{transform: "rotate(0deg)"}}
-                            alt="exit IMG"
-                            src={moon}></img>
+                            src={item.img}></img>
+                          </div>                        
                   </Link>
                 </li>  
-                <li className="nav-item" id="navBar">
-                  <Link 
-                        className="nav-link"
-                        to="/mars_rider"> Управление Curiosity
-                        <img
-                            className="start__IMGItem"
-                            style={{transform: "rotate(0deg)", backgroundColor:"rgba(65, 56, 109, 0.3)"}}
-                            alt="exit IMG"
-                            src={curiosity}></img>
-                  </Link>
-                </li>                         
-              </ul>
+              )}                      
+            </ul>
         </div>
       );
     }
