@@ -1,11 +1,14 @@
-import React, { Component ,Link }  from 'react';
+import React, { Component , Link }  from 'react';
 import  { connect } from 'react-redux'
+
+import  { SecondMenu }  from  './secondMenu.js'
+
 import  sun from "./img/sun.png";
 import  blackHole from "./img/blackHole.png";
 import  AClassStar from "./img/AClassStar.png";
 import  OClassStar from "./img/OClassStar.png";
 import  Cvasar from "./img/cvasar.png";
-
+import  plus  from "./img/plus.png"
 const a =  3
 
 function sortByMass(a, b){
@@ -36,7 +39,8 @@ class PREConstructorStarSystem extends Component{
         stars: [[120, 120, 1, 10, 10], [140, 140, 1, 1, 1]],
         tick: 1,
         listOfSpaceObjects: listOfSpaceObjects,
-        selectedItem: {text: "Звезда класса G", link: sun, massID: 3}
+        selectedItem: {text: "Звезда класса G", link: sun, massID: 3},
+        hideShow: false
       }
   
     }
@@ -113,17 +117,16 @@ class PREConstructorStarSystem extends Component{
 
     newStar(event) {
       clearInterval(this.timer)
-        if( window.innerWidth - event.x > 300 ) {
-          let arr = this.stars
-          arr.push([
-            event.x, 
-            event.y, 
-            this.state.selectedItem.massID, 
-            (Math.random() - 0.5) / 100 , 
-            (Math.random() - 0.5) / 100, 
-            this.state.selectedItem.link])
-          this.stars = arr
-        }
+        let arr = this.stars
+        arr.push([
+          event.x, 
+          event.y, 
+          this.state.selectedItem.massID, 
+          (Math.random() - 0.5) / 100 , 
+          (Math.random() - 0.5) / 100, 
+          this.state.selectedItem.link])
+        this.stars = arr
+
  
         this.timer = setInterval(() => {
           this.coordinatsUpdate()
@@ -131,16 +134,8 @@ class PREConstructorStarSystem extends Component{
         
     }
     changeObject (object) {
+      console.log(object)
       this.setState({ selectedItem: object})
-
-    }
-    selectedItem (item) {
-      if(item === this.state.selectedItem.massID) {
-        return "constructorOfStarSystem__changerItemSelected"
-      } else {
-        return "constructorOfStarSystem__changerItem"
-      }
-
     }
     styleOfObject(mass) {
       if (mass >= 800) {
@@ -158,6 +153,7 @@ class PREConstructorStarSystem extends Component{
       }
     }
     render() {
+      let menuShow = this.state.hideShow ? "constructorOfStarSystem__changer" : "HidedMenu constructorOfStarSystem__changer"
       return(   
         <div className="constructorOfStarSystem__container">
           <div  className="constructorOfStarSystem__map">
@@ -172,26 +168,9 @@ class PREConstructorStarSystem extends Component{
               </>
             )}
 
-          </div>
-   
-          <div className="constructorOfStarSystem__changer">
-
-            {this.state.listOfSpaceObjects.map( object =>               
-              <div className={this.selectedItem(object.massID)} onClick={() =>this.changeObject(object)}>
-                <div className="constructorOfStarSystem__changerItemText">{ object.text }</div>
-                <div>
-                  <img  
-                    style={{ width: 80 }}
-                    alt="sun IMG"
-                    src={object.link}/>
-                </div>
-
-              </div>            
-              )}  
-          </div>
-                
-      
-
+          </div>   
+          <SecondMenu listOfMenu={this.state.listOfSpaceObjects}
+                      onSelectObject={object => this.changeObject(object)}/>
 
         </div>
       );

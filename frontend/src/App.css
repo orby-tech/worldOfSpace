@@ -183,13 +183,10 @@ body {
   width: 30px;
 }
 
-
-.constructorOfStarSystem__container {
-}
 .constructorOfStarSystem__star {
   position: fixed;
   width: 15px;
-  transform: translate(-50%, -50%)
+  transform: translate(-50%, -50%);
 }
 .constructorOfStarSystem__map {
   height: 100%;
@@ -203,8 +200,32 @@ body {
   height: 100%;
   width: 300px;
   background: rgba(39, 23, 63, 0.7);
+  transition: right 0.3s cubic-bezier(0, 0, 0.3, 1);
 }
-
+.constructorOfStarSystem__img{
+  width: 80px;
+  transition: width 0.3s cubic-bezier(0, 0, 1, 1);
+}
+.HidedMenu {
+  right: -260px;
+  transition: right 0.5s cubic-bezier(0, 0, 0.2, 1);
+}
+.HidedMenu>.constructorOfStarSystem__changerItem{
+  height: 40px;
+  transition: height 0.5s cubic-bezier(0, 0, 1, 1);
+}
+.HidedMenu>.constructorOfStarSystem__changerItemSelected{
+  height: 40px;
+  transition: height 0.5s cubic-bezier(0, 0, 1, 1);
+}
+.HidedMenu>.constructorOfStarSystem__changerItem>img{
+  width: 40px;
+  transition: width 0.5s cubic-bezier(0, 0, 1, 1);
+}
+.HidedMenu>.constructorOfStarSystem__changerItemSelected>img{
+  width: 40px;
+  transition: width 0.5s cubic-bezier(0, 0, 1, 1);
+}
 .constructorOfStarSystem__changerItem {
   height: 80px;
   width: 260px;
@@ -214,7 +235,7 @@ body {
   vertical-align: center;
   grid-template-columns: auto 80px;
   border-radius: 0, 0, 100%, 100%;
-
+  transition: height 0.3s cubic-bezier(0, 0, 1, 1);
 }
 .constructorOfStarSystem__changerItemSelected {
   height: 80px;
@@ -225,12 +246,22 @@ body {
   vertical-align: center;
   grid-template-columns: auto 80px;
   border-radius: 0 130px 130px 0;
-
+  transition: height 0.5s cubic-bezier(0, 0, 1, 1);
 }
 .constructorOfStarSystem__changerItemText{
   padding-left: 10px;
   margin-top: auto;
   margin-bottom: auto;
+}
+.constructorOfStarSystem__menuButton {
+  position: fixed;
+  right: 2px;
+  bottom: 2px;
+  border-radius: 100%;
+  background-color: rgba(97, 139, 163, 0.7);
+}
+.constructorOfStarSystem__menuButton:hover {
+  background-color: rgba(57, 144, 194, 0.7);
 }
 .spaceObject:hover {
   width: 90px;
@@ -379,7 +410,7 @@ body {
   background-color: rgba(97, 139, 163, 0.7);
   border-radius: 100%;
   top: 50%;
-  left: calc(50% - 150px);
+  left: calc(50%);
   transform: translate(-50%, -50%);
 }
 .spaceMusic__audio{
@@ -408,7 +439,10 @@ body {
 
 
 
-
+.earthSystem__orbit {
+  position: fixed;
+  transform: translate(-50%, -50%)
+}
 
 
 

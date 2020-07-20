@@ -8,6 +8,7 @@ import  Jupiter from "./img/jupiter.png";
 import  Mars from "./img/mars.png";
 import  MilkyWay from "./img/milkyWay.png";
 import  Neptun from "./img/neptun.png";
+import  { SecondMenu }  from  './secondMenu.js';
 
 import audioMars from './audio/mars.mp3'
 import audioJupiter from './audio/jupiter.mp3'
@@ -82,21 +83,8 @@ class PREAudioOfSpace extends Component{
             </div>
 
         
-        <div className="constructorOfStarSystem__changer">
-
-          {this.state.listOfSpaceObjects.map( object =>               
-            <div className={this.selectedItem(object.massID)} onClick={() =>this.changeObject(object)}>
-              <div className="constructorOfStarSystem__changerItemText">{ object.text }</div>
-              <div>
-                <img  
-                  style={{ width: 80 }}
-                  alt="sun IMG"
-                  src={object.link}/>
-              </div>
-
-            </div>            
-            )}  
-          </div>
+          <SecondMenu listOfMenu={this.state.listOfSpaceObjects}
+                      onSelectObject={object => this.changeObject(object)}/>
         </>
       );
     }
