@@ -44,7 +44,10 @@ class PREConstructorStarSystem extends Component{
       }
   
     }
-
+    componentWillMount(){
+      document.body.scrollTo(0,0)
+      document.body.style.overflow = "hidden"
+    }
   
     coordinatsUpdate() {      
         let arr = this.stars
@@ -160,6 +163,7 @@ class PREConstructorStarSystem extends Component{
             {this.state.stars.map( star => 
               <>
                 <img  
+                  key={Object.values(star).join("")}
                   className="constructorOfStarSystem__star"
                   title="Звезда класса G"
                   style={{left: star[0], top: star[1], width: this.styleOfObject(star[2])   }}

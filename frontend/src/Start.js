@@ -25,13 +25,15 @@ class PREStart extends Component{
     }
 
     componentDidMount(){
+      document.body.scrollTo(0,0)
+      document.body.style.overflow = ""
     }
     render() {
       return(   
         <div className="start">
             <ul id="logo" className="navbar-nav ml-auto"> 
               {this.items.map(item => 
-                <li className="nav-item" id="navBar">
+                <li className="nav-item" id="navBar" key={Object.values(item).join("")}>
                   <Link 
                         className="nav-link"
                         to={item.link}>

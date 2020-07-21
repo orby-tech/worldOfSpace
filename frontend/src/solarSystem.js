@@ -18,195 +18,197 @@ const mEarth = 5.972 * Math.pow(10, 13)
 const mMoon = 7.6 * Math.pow(10, 11 )
 const scale = 385000 / 204
 const correctionTime = 0.1
+const listOfStaticElements = [
+  { "orbit": 1 },
+  { "orbit": 0.9 },
+  { "orbit": 0.7 },
+  { "orbit": 0.6 },
+  { "orbit": 0.4 },
+  { "orbit": 0.3 },
+  { "orbit": 0.2 },
+  { "orbit": 0.1 },
+]
+
+let intervalForTick 
+let tick = 0
+
 class PRESolarSystem extends Component{
   constructor(props){
     super(props);
-    this.asteroidsMove = this.asteroidsMove.bind(this)
-    this.coordinatsUpdate = this.coordinatsUpdate.bind(this)
     this.state = {
-      asteroids: [],
-      tick: 1
+      widthOfBlock: (window.innerHeight < window.innerWidth) 
+          ? window.innerHeight * 0.9
+          : window.innerWidth * 0.9,
+      centerOfBlock: [ window.innerWidth / 2, window.innerHeight / 2 ],
+      listOfBaseElements: [
+            { "object": sun,     "position": [0,0], "orbit": 0,   "form": 1 ,   "mass": 1,    "speed": 1 },
+            { "object": mercury, "position": [0,0], "orbit": 0.1, "form": 0.2 , "mass": 1,    "speed": 1 },
+            { "object": venera,  "position": [0,0], "orbit": 0.2, "form": 0.3 , "mass": 1,    "speed": 0.7 },
+            { "object": earth,   "position": [0,0], "orbit": 0.3, "form": 0.3 , "mass": 1,    "speed": 0.5 },
+            { "object": mars,    "position": [0,0], "orbit": 0.4, "form": 0.3 , "mass": 1,    "speed": 0.3 },
+            { "object": jupiter, "position": [0,0], "orbit": 0.6, "form": 0.5 , "mass": 1,    "speed": 0.2 },
+            { "object": saturn,  "position": [0,0], "orbit": 0.7, "form": 0.7 , "mass": 0.05, "speed": 0.1 },
+            { "object": uranus,  "position": [0,0], "orbit": 0.9, "form": 0.7 , "mass": 1,    "speed": 0.05 },
+            { "object": neptun,  "position": [0,0], "orbit": 1,   "form": 0.3 , "mass": 0.05, "speed": 0.025 }
+          ],
+      listOfDynamicElements: [],
     }
 
   }
-  accelerationOfAsteroid (coords, m) {
-    let R = (coords[0] - coords[2]) ** 2 + (coords[1] - coords[3]) ** 2
-    let acceleration =  G * m / R / (scale ** 3) * correctionTime 
-    let xAcceleration = acceleration * (coords[0] - coords[2]) / R**0.5
-    let yAcceleration = acceleration * (coords[1] - coords[3]) / R**0.5
 
-    return [xAcceleration, yAcceleration]
+  componentDidMount(){      
+    this.loop()
+    document.body.scrollTo(0,0)
+    document.body.style.overflow = "hidden"
+    document.addEventListener(
+          "scroll",
+          function(e){
+            document.body.scrollTo(0,0)
+          },
+          true)
+      
+    document.body.addEventListener('click', (event) => this.appendNewObject(event))
   }
-  newCoordinats(asteroid, i) {
-    let xMoon = 406 - Math.cos(i/150) * 204
-    let yMoon = 306 + Math.sin(i/150) * 204
-    let xAsteroid = asteroid[0][0]
-    let yAsteroid = asteroid[0][1]
-    if (xAsteroid > -100 && yAsteroid > -100 && xAsteroid < 1500 && yAsteroid < 700){
-      let accelerationMoon = this.accelerationOfAsteroid ([xMoon, yMoon, xAsteroid, yAsteroid], mMoon)
-      let accelerationEarth = this.accelerationOfAsteroid ([416, 316, xAsteroid, yAsteroid], mEarth)
-      let tempItem = asteroid.slice(0, 1)[0].slice()
-      tempItem[2] += accelerationMoon[0] + accelerationEarth[0]
-      tempItem[3] += accelerationMoon[1] + accelerationEarth[1]
-      tempItem[0] += tempItem[2] * correctionTime
-      tempItem[1] += tempItem[3] * correctionTime
-
-      asteroid.unshift(tempItem)
-    } else {
-      asteroid = null
+  loop(){
+    this.countBaseElementsPositions()
+    this.countDynamicElementsPositions()
+    tick++
+    setTimeout(() => {
+      this.loop()
+    }, 20)    
+  }
+  appendNewObject(event) {
+    this.setState({ listOfDynamicElements: [
+      ...this.state.listOfDynamicElements,
+        { 
+          "object" : "asteroid",
+          "mass": 1,
+          "img": asteroidIMG,
+          "position": [event.clientX, event.clientY],
+          "form": 0.2,
+          "speed": [0, 0],
+          "status": null,
+        },
+    ] })
+  }
+  countBaseElementsPositions() {
+    let listOfBaseElements = this.state.listOfBaseElements.slice()
+    listOfBaseElements.forEach( item => {
+      item.position = [
+        Math.cos(tick / 200 * item.speed ) * this.state.widthOfBlock * item.orbit * 0.5 + this.state.centerOfBlock[0] ,
+        Math.sin(tick / 200 * item.speed ) * this.state.widthOfBlock * item.orbit * 0.5 + this.state.centerOfBlock[1] ,
+      ]
+    })
+    this.setState({ listOfBaseElements : listOfBaseElements })
+  }
+  countDynamicElementsPositions() {
+    let listOfDynamicElements = [...this.state.listOfDynamicElements]
+    let listOfBaseElements = [...this.state.listOfBaseElements]
+    let coeficient = 1000
+    let accumulator = [0,0]
+    let distance = 0
+    for( let item of listOfDynamicElements) {
+      if (item.position[0] < -100 || item.position[1] < -100 ||
+          item.position[0] > this.state.widthOfBlock + 400 || item.position[1] > this.state.widthOfBlock + 400){
+        item={}
+        
+        continue
+      }
+      accumulator = [0,0]
+      let live = true;
+      for( let baseItem of  listOfBaseElements){
+        distance = (( baseItem.position[0] - item.position[0] ) ** 2 + ( baseItem.position[1] - item.position[1] ) ** 2) ** 0.5
+        if (distance < this.state.widthOfBlock * 0.1 * item.form * 0.8 ) {
+          if( !item.status ) {
+            console.log(93)
+            item.status = 1
+          } 
+        }
+        if( item.status ) {
+          item.status++
+        } else {
+          accumulator[0] += baseItem.mass / distance ** 3 * coeficient * ( baseItem.position[0] - item.position[0] )
+          accumulator[1] += baseItem.mass / distance ** 3 * coeficient * ( baseItem.position[1] - item.position[1] )
+        }
+        if ( item.status && item.status > 300 ) {
+          live = false
+          break;
+        }        
+      }
+      if ( !live ) {
+        item = {}
+        continue
+      }
+      item.speed[0] += accumulator[0]
+      item.speed[1] += accumulator[1]
+      item.position[0] += item.speed[0]
+      item.position[1] += item.speed[1]
     }
-
-    return asteroid
-  }
-
-  coordinatsUpdate(tick) {
-    let arr = this.state.asteroids
     let temp = []
-    if (arr[0]) {
-      for (let i = 0; i < arr.length; i++){
-        let asteroid = this.newCoordinats(arr[i], tick)
-        if(asteroid) {
-          temp.push(asteroid)
-        }
+    for ( let item of listOfDynamicElements ){
+      if( !item.status || item.status < 4 ) {
+        temp.push( item )
       }
-      this.setState({asteroids: temp})
     }
+    this.setState({listOfDynamicElements: temp})
   }
-  componentDidMount(){
-    let i = 0;
-    let intervalId = 0
-    intervalId = setInterval(() => {
-      if(document.querySelector('.solarSystem__sun')) {
-        document.querySelector('.solarSystem__sun').style.transform = 'rotate(' + (-i/150) + 'rad)';
-        document.querySelector('.solarSystem__mercuryContainer').style.transform = 'rotate(' + (-i/36) + 'rad)';
-        document.querySelector('.solarSystem__veneraContainer').style.transform = 'rotate(' + (-i/92.5) + 'rad)';
-        document.querySelector('.solarSystem__earthContainer').style.transform = 'rotate(' + (-i/150) + 'rad)';
-        document.querySelector('.solarSystem__marsContainer').style.transform = 'rotate(' + (-i/282) + 'rad)';
-        document.querySelector('.solarSystem__jupiterContainer').style.transform = 'rotate(' + (-i/1800) + 'rad)';
-        document.querySelector('.solarSystem__saturnContainer').style.transform = 'rotate(' + (-i/4500 - 2.5) + 'rad)';
-        document.querySelector('.solarSystem__uranusContainer').style.transform = 'rotate(' + (-i/12600 - 2.6) + 'rad)';
-        document.querySelector('.solarSystem__neptunContainer').style.transform = 'rotate(' + (-i/24750 - 2.6) + 'rad)';
-  
-        document.querySelector('.solarSystem__mercury').style.transform = 'rotate(' + (-i/72) + 'rad)';
-        document.querySelector('.solarSystem__venera').style.transform = 'rotate(' + (-i/19.25) + 'rad)';
-        document.querySelector('.solarSystem__earth').style.transform = 'rotate(' + (-i/55) + 'rad)';
-        document.querySelector('.solarSystem__mars').style.transform = 'rotate(' + (-i/56) + 'rad)';
-        document.querySelector('.solarSystem__jupiter').style.transform = 'rotate(' + (i/1800 + 0.5) + 'rad)';
-        document.querySelector('.solarSystem__saturn').style.transform = 'rotate(' + (-0.2 + i/4500) + 'rad)';
-        this.coordinatsUpdate(i)
-        i++
-        if ( i/150/36/92.5 > 2*Math.PI){
-          i -= 2*Math.PI*150*36*92.5
-        }
-      } else {
-        clearInterval(intervalId)
-      }
-
-      
-      
-    }, 1);
-    document.addEventListener("click", this.asteroidsMove);
-  }
-
-  asteroidsMove (event) {
-    let arr = this.state.asteroids
-    arr.push([[event.x, event.y, 0, 0]])
-    this.setState({asteroids: arr})
-  }
-
   render() {
     return(   
-      <div className="solarSystem">
-          <img  
-            className="spaceObject solarSystem__sun"
-            title="Солнышко"
-            alt="earth IMG"
-            src={sun}/>
-          <div className="solarSystem__mercuryTrack"> </div>
-          <div className="solarSystem__mercuryContainer">
-            <img  
-              className="spaceObject solarSystem__mercury"
-              title="Меркурий"
-              alt="mercury IMG"
-              src={mercury}/>
-          </div>
+      <>
+        {listOfStaticElements.map((item)=>{
+          if(item.orbit) {
+            return(
+              <div  className="earthSystem__orbit"
+                    key={Object.values(item).join("")}
+                    style={{
+                      left : this.state.centerOfBlock[0],
+                      top : this.state.centerOfBlock[1],
+                      width : this.state.widthOfBlock * item.orbit,
+                      height : this.state.widthOfBlock * item.orbit,
+                    }}>
 
-
-          <div className="solarSystem__veneraTrack"> </div>
-          <div className="solarSystem__veneraContainer">
-            <img  
-              className="spaceObject solarSystem__venera"
-              title="Венера"
-              alt="venera IMG"
-              src={venera}/>
-          </div>
-          
-          <div className="solarSystem__earthTrack"> </div>
-          <div className="solarSystem__earthContainer">
-            <img  
-              className="spaceObject solarSystem__earth"
-              title="Земля"
-              alt="venera IMG"
-              src={earth}/>
-          </div>
-
-          <div className="solarSystem__marsTrack"> </div>
-          <div className="solarSystem__marsContainer">
-            <img  
-              className="spaceObject solarSystem__mars"
-              title="Марс"
-              alt="venera IMG"
-              src={mars}/>
-          </div>
-          <div className="solarSystem__jupiterTrack"> </div>
-          <div className="solarSystem__jupiterContainer">
-            <img  
-              className="spaceObject solarSystem__jupiter"
-              title="Юпитер"
-              alt="jupiter IMG"
-              src={jupiter}/>
-          </div>
-          <div className="solarSystem__saturnTrack"> </div>
-          <div className="solarSystem__saturnContainer">
-            <img  
-              className="spaceObject solarSystem__saturn"
-              title="Сатурн"
-              alt="saturn IMG"
-              src={saturn}/>
-          </div>
-          <div className="solarSystem__uranusTrack"> </div>
-          <div className="solarSystem__uranusContainer">
-            <img  
-              className="spaceObject solarSystem__uranus"
-              title="Уран"
-              alt="uranus IMG"
-              src={uranus}/>
-          </div>
-          <div className="solarSystem__neptunTrack"> </div>
-          <div className="solarSystem__neptunContainer">
-            <img  
-              className="spaceObject solarSystem__neptun"
-              title="Нептун"
-              alt="neptun IMG"
-              src={neptun}/>
-          </div>
-
-          {this.state.asteroids.map( asteroid => 
-            <>
-              <img  
-                className="spaceObject solarSystem__asteroid"
-                title="Астероид"
-                style={{left: asteroid[0][0], top: asteroid[0][1]}}
-                alt="asteroid IMG"
-                src={asteroidIMG}/>
-              {asteroid.slice(1).map( item =>
-                <div className="solarSystem__track" style={{left: item[0] + 5, top: item[1] + 5}}></div>
-              )}
-            </>
-          )}
-          
-
-      </div>
+              </div>
+            )
+          } else if( item.center ) {
+            return(
+              <img 
+                className="earthSystem__orbit"
+                key={Object.values(item).join("")}
+                src={item.center}
+                style={{
+                  left : this.state.centerOfBlock[0],
+                  top : this.state.centerOfBlock[1],
+                  width : this.state.widthOfBlock * 0.1,
+                  height : this.state.widthOfBlock * 0.1,
+                }}/>
+            )
+          }
+        })}
+        {this.state.listOfBaseElements.map( item => 
+          <img 
+            key={Object.values(item).join("")}
+            className="earthSystem__orbit"
+            src={item.object}
+            style={{
+              left : item.position[0],
+              top : item.position[1],
+              width : this.state.widthOfBlock * 0.1 * item.form,
+              height : this.state.widthOfBlock * 0.1 * item.form,
+            }}/>
+        )}
+        {this.state.listOfDynamicElements.map( item => 
+          <img 
+            key={Object.values(item).join("")}
+            className="earthSystem__orbit"
+            src={item.img}
+            style={{
+              left : item.position[0],
+              top : item.position[1],
+              width : this.state.widthOfBlock * 0.1 * item.form,
+              height : this.state.widthOfBlock * 0.1 * item.form,
+            }}/>
+        )}
+      </>
     );
   }
 }

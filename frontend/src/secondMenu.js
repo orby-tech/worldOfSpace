@@ -8,7 +8,7 @@ export const SecondMenu = props => {
     const changeObject = (e, object) =>{
         e.preventDefault()
         props.onSelectObject(object)
-
+        setSelectedItem(object.massID)
     }
     const hideShowMenu = e => {
         e.preventDefault()
@@ -25,6 +25,7 @@ export const SecondMenu = props => {
                             ? "constructorOfStarSystem__changerItemSelected"
                             : "constructorOfStarSystem__changerItem"
                             } 
+                    key={Object.values(object).join("")}
                     onClick={(e) =>changeObject(e, object)}>
                 
                 <img  

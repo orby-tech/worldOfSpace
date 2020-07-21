@@ -42,11 +42,9 @@ class PREAudioOfSpace extends Component{
       }
   
     }
-
-
     componentDidMount(){
-      
-
+      document.body.scrollTo(0,0)
+      document.body.style.overflow = "hidden"
     }
     changeObject(object){
       for (let i = 1; i<=this.state.listOfSpaceObjects.length; i++){
@@ -71,16 +69,42 @@ class PREAudioOfSpace extends Component{
         return "spaceMusic__audioNoDisplay"
       }
     }
+    randomTextOnLabel(){
+      const listOfVariables = [
+        "Так звучит страх", 
+        "Это %%%, познакомтесь)",
+        "%%%",
+        "Лучше было бы глянуть ужастик(",
+        "О, а это мое любимое, его сиятельство %%%",
+        "И микрофон получает %%%",
+        "Где-то там далеко...",
+        "Не нравится? А как по твоему должен звучать %%%?",
+        "Аж муражки",
+        "Космос это хорошо))",
+        "Ничего не напоминает?",
+      ]
+      let text = listOfVariables[Math.floor(Math.random() * listOfVariables.length)];
+      text = text.replace('%%%', this.state.selectedItem.text)
+      return text
+    }
     render() {
       return(   
         <>
-            <div className="spaceMusic__audioContainer">
-              {this.state.listOfSpaceObjects.map( object =>               
-                <audio controls="controls" id={""+ object.massID} className={this.audio(object.massID)} name="media">
-                  <source src={object.audio} type="audio/mpeg" />  
-                </audio>          
-              )}  
-            </div>
+          <div className="spaceMusic__audioContainer">
+
+            {this.state.listOfSpaceObjects.map( object =>               
+              <audio  controls="controls" id={""+ object.massID} 
+                      className={this.audio(object.massID)} 
+                      key={Object.values(object).join("")}
+                      name="media">
+                <source src={object.audio} type="audio/mpeg" />  
+              </audio>          
+            )}  
+            <p 
+              className="spaceMusic__audioLabel">
+              {this.randomTextOnLabel()}
+            </p>
+          </div>
 
         
           <SecondMenu listOfMenu={this.state.listOfSpaceObjects}
