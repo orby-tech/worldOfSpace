@@ -4,11 +4,14 @@
   font-family: Void; /* Имя шрифта */
   src: url(17320.otf); /* Путь к файлу со шрифтом */
  }
-
+html{
+  height: 100%;
+}
 body {
   font-family: Void;
   background-color: #020a16;
   background-image: url(./img/space2.png);
+  height: 100%;
 }
 .asteroidContainer {
   width: 100%;
@@ -384,24 +387,28 @@ body {
 
 .moonPanoram__imgContainer {
   position: fixed;
-  left: calc(50% - 170px);
-  top: 120px;
-	overflow:hidden; /* this is important */
-  width: 350px;
-  height: 400px;
+  top:10px;
+	overflow:hidden;
 }
 .moonPanoram__img {
-  height: 300px;
   position: absolute;
 }
 .moonPanoram__pc {
   position: fixed;
-  width: 700px;
-  left: calc(50% - 350px);
-  top: 10px;
-  z-index: 999999;
+  top:10px;
+  z-index: 99;
+}
+.moonPanoram__buttonContainer{
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
 }
 
+.moonPanoram__button{
+    border: 30px solid transparent; border-left: 40px solid rgb(61, 52, 110);
+    margin: 10px;
+    display: inline-block;
+}
 
 .spaceMusic__audioContainer {
   position: absolute;

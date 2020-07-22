@@ -41,15 +41,15 @@ class PRESolarSystem extends Component{
           : window.innerWidth * 0.9,
       centerOfBlock: [ window.innerWidth / 2, window.innerHeight / 2 ],
       listOfBaseElements: [
-            { "object": sun,     "position": [0,0], "orbit": 0,   "form": 1 ,   "mass": 1,    "speed": 1 },
-            { "object": mercury, "position": [0,0], "orbit": 0.1, "form": 0.2 , "mass": 1,    "speed": 1 },
-            { "object": venera,  "position": [0,0], "orbit": 0.2, "form": 0.3 , "mass": 1,    "speed": 0.7 },
-            { "object": earth,   "position": [0,0], "orbit": 0.3, "form": 0.3 , "mass": 1,    "speed": 0.5 },
-            { "object": mars,    "position": [0,0], "orbit": 0.4, "form": 0.3 , "mass": 1,    "speed": 0.3 },
-            { "object": jupiter, "position": [0,0], "orbit": 0.6, "form": 0.5 , "mass": 1,    "speed": 0.2 },
-            { "object": saturn,  "position": [0,0], "orbit": 0.7, "form": 0.7 , "mass": 0.05, "speed": 0.1 },
-            { "object": uranus,  "position": [0,0], "orbit": 0.9, "form": 0.7 , "mass": 1,    "speed": 0.05 },
-            { "object": neptun,  "position": [0,0], "orbit": 1,   "form": 0.3 , "mass": 0.05, "speed": 0.025 }
+            { "object": sun,     "position": [0,0], "orbit": 0,   "form": 1 ,   "mass": 6.5,    "speed": 1 },
+            { "object": mercury, "position": [0,0], "orbit": 0.1, "form": 0.2 , "mass": 0.2,    "speed": 1 },
+            { "object": venera,  "position": [0,0], "orbit": 0.2, "form": 0.3 , "mass": 0.3,    "speed": 0.7 },
+            { "object": earth,   "position": [0,0], "orbit": 0.3, "form": 0.3 , "mass": 0.5,    "speed": 0.5 },
+            { "object": mars,    "position": [0,0], "orbit": 0.4, "form": 0.3 , "mass": 0.4,    "speed": 0.3 },
+            { "object": jupiter, "position": [0,0], "orbit": 0.6, "form": 0.5 , "mass": 1.2,    "speed": 0.2 },
+            { "object": saturn,  "position": [0,0], "orbit": 0.7, "form": 0.7 , "mass": 1, "speed": 0.1 },
+            { "object": uranus,  "position": [0,0], "orbit": 0.9, "form": 0.7 , "mass": 0.7,    "speed": 0.05 },
+            { "object": neptun,  "position": [0,0], "orbit": 1,   "form": 0.3 , "mass": 0.7, "speed": 0.025 }
           ],
       listOfDynamicElements: [],
     }
@@ -78,6 +78,7 @@ class PRESolarSystem extends Component{
     }, 20)    
   }
   appendNewObject(event) {
+    console.log(event)
     this.setState({ listOfDynamicElements: [
       ...this.state.listOfDynamicElements,
         { 
@@ -104,12 +105,12 @@ class PRESolarSystem extends Component{
   countDynamicElementsPositions() {
     let listOfDynamicElements = [...this.state.listOfDynamicElements]
     let listOfBaseElements = [...this.state.listOfBaseElements]
-    let coeficient = 1000
+    let coeficient = 10
     let accumulator = [0,0]
     let distance = 0
     for( let item of listOfDynamicElements) {
       if (item.position[0] < -100 || item.position[1] < -100 ||
-          item.position[0] > this.state.widthOfBlock + 400 || item.position[1] > this.state.widthOfBlock + 400){
+          item.position[0] > window.innerWidth + 100 || item.position[1] > window.innerWidth + 100){
         item={}
         
         continue
@@ -118,7 +119,7 @@ class PRESolarSystem extends Component{
       let live = true;
       for( let baseItem of  listOfBaseElements){
         distance = (( baseItem.position[0] - item.position[0] ) ** 2 + ( baseItem.position[1] - item.position[1] ) ** 2) ** 0.5
-        if (distance < this.state.widthOfBlock * 0.1 * item.form * 0.8 ) {
+        if (distance < this.state.widthOfBlock * 0.1 * item.form * 0.3 ) {
           if( !item.status ) {
             console.log(93)
             item.status = 1

@@ -40,14 +40,18 @@ class PREMoonPanoram extends Component{
         img24, img25, img26]
       this.state = {
         img: [0, 0],
-        loading: true
+        loading: true,
+        widthOfBlock: (window.innerHeight < window.innerWidth) 
+          ? window.innerHeight * 0.9
+          : window.innerWidth * 0.9,
       }
   
     }
 
 
     componentDidMount(){
-
+      document.body.scrollTo(0,0)
+      document.body.style.overflow = "hidden"
 
       let self = this
       setInterval(() => {
@@ -61,43 +65,52 @@ class PREMoonPanoram extends Component{
       document.addEventListener('keydown', (event) => {
         
         if (event.code === 'ArrowLeft') {
-          this.setState({loading: true})
-          let index = this.state.img
-          index[0] -= 1
-            if ( index[0] < 0 ) {
-              index[0] += this.imgs.length
-
-            }
-            if ( index[0] >= this.imgs.length ) {
-              index[0] -= this.imgs.length
-            }
-          setTimeout(() => {
-            self.setState({img: index, loading:false})
-          }, 50)
-          
-          
+          this.leftEvent()
         }
         if (event.code === 'ArrowRight') {
-          this.setState({loading: true})
-          let index = this.state.img
-          index[0] += 1
-          if ( index[0] < 0 ) {
-            index[0] += this.imgs.length
-          }
-          if ( index[0] >= this.imgs.length ) {
-            index[0] -= this.imgs.length
-          }
-          setTimeout(() => {
-            self.setState({img: index, loading:false})
-          }, 20)
+          this.rightEvent()
         }
       });
       this.setState({loading: false})
+    }
+    leftEvent() {
+      this.setState({loading: true})
+      let index = this.state.img
+      index[0] -= 1
+        if ( index[0] < 0 ) {
+          index[0] += this.imgs.length
+
+        }
+        if ( index[0] >= this.imgs.length ) {
+          index[0] -= this.imgs.length
+        }
+      setTimeout(() => {
+        this.setState({img: index, loading:false})
+      }, 50)
+    }
+    rightEvent() {
+      this.setState({loading: true})
+      let index = this.state.img
+      index[0] += 1
+      if ( index[0] < 0 ) {
+        index[0] += this.imgs.length
+      }
+      if ( index[0] >= this.imgs.length ) {
+        index[0] -= this.imgs.length
+      }
+      setTimeout(() => {
+        this.setState({img: index, loading:false})
+      }, 20)
     }
     imgChange(){
       if(this.state.loading) {
         return (
           <img className="moonPanoram__img"
+                style={{
+                  width: this.state.widthOfBlock * 0.9,
+                  height: this.state.widthOfBlock* 0.5,
+                  left: (window.innerWidth - this.state.widthOfBlock * 0.9) / 2,
+                }}
                 title=""
                 alt="IMG"
                 
@@ -105,12 +118,31 @@ class PREMoonPanoram extends Component{
         )
       } else {
         return (<img className="moonPanoram__img"
+                  style={{
+                    width: this.state.widthOfBlock * 0.9,
+                    height: this.state.widthOfBlock* 0.5,
+                    left: (window.innerWidth - this.state.widthOfBlock * 0.9) / 2,
+                  }}
                 title=""
                 alt="IMG"
                 
                 src={this.imgs[this.state.img[0]]}/>)
       }
-
+    }
+    buttonsEmulator() {
+      if (!/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent)) {
+        return ""
+      } else {
+        return (
+          <div className="moonPanoram__buttonContainer">
+            <div  className="moonPanoram__button" 
+                  style={{transform: "rotate(180deg)"}}
+                  onClick={()=>this.leftEvent()}></div>
+            <div  className="moonPanoram__button"
+                  onClick={()=>this.rightEvent()}></div>
+          </div>
+        )
+      }
     }
     render() {
       return(   
@@ -118,12 +150,14 @@ class PREMoonPanoram extends Component{
           <img className="moonPanoram__pc"
             title=""
             alt="IMG"
-            style={{}}
+            style={{
+              width: this.state.widthOfBlock,
+              left: (window.innerWidth - this.state.widthOfBlock) / 2,
+            }}
             src={pc}/>
-          <div className="moonPanoram__imgContainer">
-    
           {this.imgChange()}
-          </div>
+
+          {this.buttonsEmulator()}
         </>
       );
     }
