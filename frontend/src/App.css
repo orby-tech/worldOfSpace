@@ -452,9 +452,29 @@ body {
   position: fixed;
   z-index: 0;
   transform: translate(-50%, -50%)
-  
 }
-
+.curiosity__joystickContainer{
+  position: fixed;
+  right: 10px;
+  bottom: 10px;
+  width: 100px;
+  height: 100px;
+  background-color: rgba(235, 168, 168, 0.747);
+  border: 1px solid rgba(231, 205, 205, 0.7);
+  box-shadow: 0 0 30px rgba(231, 205, 205, 0.828) inset;
+  border-radius: 100%;
+}
+.curiosity__joystick{
+  position: relative;
+  left: 50px;
+  top: 50px;
+  width: 50px;
+  height: 50px;
+  border: 1px solid rgba(136, 99, 99, 0.548);
+  box-shadow: 0 0 30px rgba(172, 126, 126, 0.733) inset;
+  border-radius: 100%;
+  transform: translate(-50%, -50%);
+}
 
 .earthSystem__orbit {
   position: fixed;
