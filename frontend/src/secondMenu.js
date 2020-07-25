@@ -6,12 +6,12 @@ export const SecondMenu = props => {
     const [selectedItem, setSelectedItem] = useState(0);
     const [hideShow, setHideShow] = useState(false);
     const changeObject = (e, object) =>{
-        e.preventDefault()
+        e.stopPropagation()
         props.onSelectObject(object)
         setSelectedItem(object.massID)
     }
     const hideShowMenu = e => {
-        e.preventDefault()
+        e.stopPropagation()
         setHideShow(!hideShow)
     }
     let menuShow = hideShow ? "constructorOfStarSystem__changer" : "HidedMenu constructorOfStarSystem__changer"

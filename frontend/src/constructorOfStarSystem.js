@@ -2,6 +2,7 @@ import React, { Component , Link }  from 'react';
 import  { connect } from 'react-redux'
 
 import  { SecondMenu }  from  './secondMenu.js'
+import  { Overlay }  from './overlay.js'
 
 import  sun from "./img/sun.png";
 import  blackHole from "./img/blackHole.png";
@@ -40,7 +41,8 @@ class PREConstructorStarSystem extends Component{
         tick: 1,
         listOfSpaceObjects: listOfSpaceObjects,
         selectedItem: {text: "Звезда класса G", link: sun, massID: 3},
-        hideShow: false
+        hideShow: false,
+        overlayShow: true,
       }
   
     }
@@ -109,9 +111,8 @@ class PREConstructorStarSystem extends Component{
       if(document.querySelector('.constructorOfStarSystem__star')) {
         this.timer = setInterval(() => {
           
-      this.coordinatsUpdate() 
+          this.coordinatsUpdate() 
         }, 1);
-        document.addEventListener("click", this.newStar);
       } else {
         clearInterval(this.timer)
       }
@@ -119,6 +120,8 @@ class PREConstructorStarSystem extends Component{
 
 
     newStar(event) {
+      console.log(event)
+      if( this.state.overlayShow ) return;
       clearInterval(this.timer)
         let arr = this.stars
         arr.push([
@@ -137,8 +140,16 @@ class PREConstructorStarSystem extends Component{
         
     }
     changeObject (object) {
+      if ( object.text === this.state.selectedItem.text) {
+        this.hideShowOverlay()
+      }
       console.log(object)
       this.setState({ selectedItem: object})
+    }
+    hideShowOverlay () {
+      setTimeout(() => {
+        this.setState({ overlayShow: !this.state.overlayShow })
+      }, 20)
     }
     styleOfObject(mass) {
       if (mass >= 800) {
@@ -155,10 +166,11 @@ class PREConstructorStarSystem extends Component{
         return 10
       }
     }
+
     render() {
       let menuShow = this.state.hideShow ? "constructorOfStarSystem__changer" : "HidedMenu constructorOfStarSystem__changer"
       return(   
-        <div className="constructorOfStarSystem__container">
+        <div className="constructorOfStarSystem__container" onClick={ () => this.newStar(event)}>
           <div  className="constructorOfStarSystem__map">
             {this.state.stars.map( star => 
               <>
@@ -167,7 +179,7 @@ class PREConstructorStarSystem extends Component{
                   className="constructorOfStarSystem__star"
                   title="Звезда класса G"
                   style={{left: star[0], top: star[1], width: this.styleOfObject(star[2])   }}
-                  alt="sun IMG"
+                  alt="IMG"
                   src={star[5]}/>
               </>
             )}
@@ -175,7 +187,9 @@ class PREConstructorStarSystem extends Component{
           </div>   
           <SecondMenu listOfMenu={this.state.listOfSpaceObjects}
                       onSelectObject={object => this.changeObject(object)}/>
-
+          <Overlay  overlayShow={this.state.overlayShow} 
+                    hideShowOverlay={ () => this.hideShowOverlay()}
+                    object={this.state.selectedItem}/>
         </div>
       );
     }

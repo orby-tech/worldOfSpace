@@ -13,11 +13,14 @@ body {
   background-image: url(./img/space2.png);
   height: 100%;
 }
+
 .asteroidContainer {
   width: 100%;
   height: 100%;
 }
-
+.noDisplay{
+  display: none;
+}
 .asteroidContainer__earth {
   position: absolute;
   top: 300px;
@@ -185,11 +188,19 @@ body {
 .solarSystem__neptun { 
   width: 30px;
 }
-
+.constructorOfStarSystem__container {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+}
 .constructorOfStarSystem__star {
   position: fixed;
   width: 15px;
   transform: translate(-50%, -50%);
+}
+.constructorOfStarSystem__star:hover {
+  transform: scale(2) translate(-25%, -25%);
 }
 .constructorOfStarSystem__map {
   height: 100%;
@@ -488,9 +499,69 @@ body {
 
 
 
+.overlay__container {
+  position: fixed;
+  z-index: 999999999999999999;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: rgba(65, 105, 225, 0.463);
+  border-radius: 0;
+  transition: all 0.3s cubic-bezier(0, 0, 1, 1);
 
-
-
+}
+.overlay__containerNoDisplay {
+  position: fixed;
+  z-index: 999999999999999999;
+  width: 0;
+  height: 0;
+  top: -100%;
+  left: 200%;
+  border-radius: 0 0 0 500%;
+  transition: all 0.3s cubic-bezier(0, 0, 1, 1);
+}
+.overlay__containerNoDisplay .overlay__infoBlock {
+  opacity: 0;
+  height: 0;
+  transition: all 0.3s cubic-bezier(0, 0, 0.7, 1);
+}
+.overlay__containerNoDisplay .overlay__header {
+  width: 0;
+}
+.overlay__containerNoDisplay .overlay__img {
+  width: 0;
+}
+.overlay__containerNoDisplay .overlay__h {
+  display: none;
+}
+.overlay__infoBlock {
+  position: absolute;
+  max-width: 800px;
+  min-width: 300px;
+  height: 100%;
+  left: 50%;
+  top:20px;
+  border-radius: 20px;
+  transform: translate(-50%, 0);
+  background-color: rgba(140, 202, 148, 0.497);
+  opacity: 1;
+  transition: all 0.3s cubic-bezier(0, 0, 1, 1);
+}
+.overlay__header {
+  display: grid;
+  width: 100%;
+  grid-template-columns: 25% 75%;
+}
+.overlay__img {
+  width: 100%;
+}
+.overlay__h {
+  position: relative;
+  top: 50%;
+  padding-left: 20px;
+  transform: translate(0, -20px);
+}
 
 
 
