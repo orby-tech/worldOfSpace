@@ -3,6 +3,7 @@ import  { connect } from 'react-redux'
 
 import  { SecondMenu }  from  './secondMenu.js'
 import  { Overlay }  from './overlay.js'
+import  { ConstructorsOfDynamicElements }  from './consrtuctorsDynamicElements.js'
 
 import  sun from "./img/sun.png";
 import  blackHole from "./img/blackHole.png";
@@ -30,19 +31,16 @@ class PREConstructorStarSystem extends Component{
       ]
 
       this.center = []
-      this.stars = [
-        [220, 220, 3, 0, 0, sun], 
-        [420, 420, 1, -0.1, 0, blackHole]
-      ]
+      this.stars = []
       this.timer = 0 
       this.state = {
         work: true,
-        stars: [[120, 120, 1, 10, 10], [140, 140, 1, 1, 1]],
+        stars: [],
         tick: 1,
         listOfSpaceObjects: listOfSpaceObjects,
-        selectedItem: {text: "Звезда класса G", link: sun, massID: 3},
+        selectedItem: listOfSpaceObjects[0],
         hideShow: false,
-        overlayShow: true,
+        overlayShow: false,
       }
   
     }
@@ -151,40 +149,12 @@ class PREConstructorStarSystem extends Component{
         this.setState({ overlayShow: !this.state.overlayShow })
       }, 20)
     }
-    styleOfObject(mass) {
-      if (mass >= 800) {
-        return 150
-      } else if (mass >= 72) {
-        return 20
-      } else if (mass >= 12) {
-        return 20
-      } else if (mass >= 9) {
-        return 20
-      }else if (mass >= 3) {
-        return 15
-      } else if (mass >= 1) {
-        return 10
-      }
-    }
 
     render() {
       let menuShow = this.state.hideShow ? "constructorOfStarSystem__changer" : "HidedMenu constructorOfStarSystem__changer"
       return(   
         <div className="constructorOfStarSystem__container" onClick={ () => this.newStar(event)}>
-          <div  className="constructorOfStarSystem__map">
-            {this.state.stars.map( star => 
-              <>
-                <img  
-                  key={Object.values(star).join("")}
-                  className="constructorOfStarSystem__star"
-                  title="Звезда класса G"
-                  style={{left: star[0], top: star[1], width: this.styleOfObject(star[2])   }}
-                  alt="IMG"
-                  src={star[5]}/>
-              </>
-            )}
-
-          </div>   
+          <ConstructorsOfDynamicElements stars={this.state.stars} />
           <SecondMenu listOfMenu={this.state.listOfSpaceObjects}
                       onSelectObject={object => this.changeObject(object)}/>
           <Overlay  overlayShow={this.state.overlayShow} 

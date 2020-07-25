@@ -19,7 +19,7 @@ class PRECuriosity extends Component{
   
     }
     move(delta){
-        delta *= 3
+        delta *= 0.3
         let angel = this.state.angel
         let index = this.state.mapOffset
         index[0] += delta * Math.cos(- angel/360 * 2 * Math.PI)   
@@ -42,7 +42,7 @@ class PRECuriosity extends Component{
 
     rotate(delta){
         let angel = this.state.angel
-        angel += delta
+        angel += delta * 0.5
         if (angel < 0) angel += 360
         if (angel > 360) angel -= 360
         this.setState({angel: angel})
@@ -54,8 +54,9 @@ class PRECuriosity extends Component{
       x -= 50
       let angel = Math.atan2(y , x) / 3.14 * 180 + 180
       let delta = angel - this.state.angel
-      console.log(this.state.angel, angel, delta)
-      if (delta > 180 && delta < 360) delta = delta - 360
+     
+      if (delta > 180 ) delta = delta - 360
+      if (delta < -180 ) delta = delta + 360
       this.rotate(Math.sign(delta))
     }
     componentDidMount(){
@@ -109,6 +110,7 @@ class PRECuriosity extends Component{
         })
         document.querySelector('.curiosity__joystickContainer').addEventListener("touchend", event => {
           clearInterval(moveTouchTimer)
+          this.setState({ joystickPosition: [50, 50]})
         })
       }
     }

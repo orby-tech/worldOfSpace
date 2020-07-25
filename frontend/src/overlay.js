@@ -1,17 +1,6 @@
 import React, { useState } from "react";
 import  OClassStar from "./img/OClassStar.png";
 export const Overlay = props => {
-    const [selectedItem, setSelectedItem] = useState(0);
-    const [hideShow, setHideShow] = useState(true);
-    const changeObject = (e, object) =>{
-        e.preventDefault()
-        props.onSelectObject(object)
-        setSelectedItem(object.massID)
-    }
-    const hideOverlay = e => {
-        e.preventDefault()
-        setHideShow(!hideShow)
-    }
     let overlayShow = props.overlayShow ? "overlay__container" : "overlay__containerNoDisplay"
     return (
         <div className={overlayShow} onClick={ (e) => props.hideShowOverlay(e) }>
