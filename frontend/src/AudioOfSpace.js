@@ -2,13 +2,16 @@ import React, { Component ,Link }  from 'react';
 import  { connect } from 'react-redux'
 import AudioPlayer from 'react-h5-audio-player';
 
+import  { SecondMenu }  from  './secondMenu.js';
+import  { Overlay }  from './overlay.js'
+
 import  blackHole from "./img/blackHole.png";
 import  Cvasar from "./img/cvasar.png";
 import  Jupiter from "./img/jupiter.png";
 import  Mars from "./img/mars.png";
 import  MilkyWay from "./img/milkyWay.png";
 import  Neptun from "./img/neptun.png";
-import  { SecondMenu }  from  './secondMenu.js';
+
 
 import audioMars from './audio/mars.mp3'
 import audioJupiter from './audio/jupiter.mp3'
@@ -37,8 +40,9 @@ class PREAudioOfSpace extends Component{
       ]
       this.state = {
         listOfSpaceObjects: listOfSpaceObjects,
-        selectedItem: {text: "Марс", link: Mars, massID: 1, audio:audioMars }
-
+        selectedItem: {text: "Марс", link: Mars, massID: 1, audio:audioMars },
+        overlayShow: false,
+        overlayItem: {text: "", link: '', massID: null},
       }
   
     }
@@ -47,12 +51,21 @@ class PREAudioOfSpace extends Component{
       document.body.style.overflow = "hidden"
     }
     changeObject(object){
-      for (let i = 1; i<=this.state.listOfSpaceObjects.length; i++){
-        console.log(i)
-        let temp = "" + i
-        document.getElementById(temp).stop()
+      if ( object.text === this.state.selectedItem.text) {
+        this.setState({ overlayItem: this.state.selectedItem })
+        this.hideShowOverlay()
+      } else {
+        for (let i = 1; i<=this.state.listOfSpaceObjects.length; i++){
+          let temp = "" + i
+          document.getElementById(temp).stop()
+        }
+        this.setState({ selectedItem: object})
       }
-      this.setState({ selectedItem: object})
+    }
+    hideShowOverlay () {
+      setTimeout(() => {
+        this.setState({ overlayShow: !this.state.overlayShow })
+      }, 20)
     }
     selectedItem (item) {
       if(item === this.state.selectedItem.massID) {
@@ -109,6 +122,9 @@ class PREAudioOfSpace extends Component{
         
           <SecondMenu listOfMenu={this.state.listOfSpaceObjects}
                       onSelectObject={object => this.changeObject(object)}/>
+          <Overlay  overlayShow={this.state.overlayShow} 
+                    hideShowOverlay={ () => this.hideShowOverlay()}
+                    object={this.state.overlayItem}/>
         </>
       );
     }
