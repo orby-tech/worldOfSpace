@@ -37,8 +37,8 @@ export const SecondMenu = props => {
             </div>            
             )}  
             </div>
-            <div className="constructorOfStarSystem__menuButton"
-            onClick={(e) => hideShowMenu(e)}>
+            <div    className="constructorOfStarSystem__menuButton"
+                    onClick={(e) => hideShowMenu(e)}>
             <img src={plus}/>
             </div> 
         </>

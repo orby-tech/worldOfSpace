@@ -15,12 +15,16 @@ export const ConstructorsOfDynamicElements = props => {
           return 10
         }
       }
+    const starClick = (star) => {
+        console.log(star)
+    }
     return (
         <>
             {props.stars.map( ( star, index) => 
                 <img  
                   key={Object.values(star).join("") + index }
                   className="constructorOfStarSystem__star"
+                  onMouseUp={ () => props.imgClick(star) }
                   title="Звезда класса G"
                   style={{left: star[0], top: star[1], width: styleOfObject(star[2])   }}
                   alt="IMG"

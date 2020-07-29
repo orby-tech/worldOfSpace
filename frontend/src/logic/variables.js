@@ -1,0 +1,3 @@
+const namesOfAstroObjects = {
+    cvasar : { name: "",  }
+}

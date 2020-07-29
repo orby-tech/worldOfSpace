@@ -537,14 +537,14 @@ body {
 }
 .overlay__infoBlock {
   position: absolute;
-  max-width: 800px;
+  max-width: 500px;
   min-width: 300px;
   height: 100%;
   left: 50%;
   top:20px;
   border-radius: 20px;
   transform: translate(-50%, 0);
-  background-color: rgba(140, 202, 148, 0.497);
+  background-color: rgba(120, 170, 126, 0.769);
   opacity: 1;
   transition: all 0.3s cubic-bezier(0, 0, 1, 1);
 }
@@ -563,7 +563,14 @@ body {
   transform: translate(0, -20px);
 }
 
+.overlay__textBlock {
+  width: 100%;
+  padding: 30px;
+}
 
+.overlay__p {
+  font-size: 120%;
+}
 
 
 

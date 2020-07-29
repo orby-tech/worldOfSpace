@@ -5,6 +5,8 @@ import  { SecondMenu }  from  './secondMenu.js'
 import  { Overlay }  from './overlay.js'
 import  { ConstructorsOfDynamicElements }  from './consrtuctorsDynamicElements.js'
 
+import newObjectsNameGenerator from "./logic/nameGenerator"
+
 import  sun from "./img/sun.png";
 import  blackHole from "./img/blackHole.png";
 import  AClassStar from "./img/AClassStar.png";
@@ -41,6 +43,7 @@ class PREConstructorStarSystem extends Component{
         selectedItem: listOfSpaceObjects[0],
         hideShow: false,
         overlayShow: false,
+        overlayItem: {text: "", link: '', massID: null},
       }
   
     }
@@ -85,7 +88,7 @@ class PREConstructorStarSystem extends Component{
               } else if (mass >= 1) {
                 link = 1
               }
-              arr[i] = [ arr[i][0], arr[i][1], mass, x, y , link ]
+              arr[i] = [ arr[i][0], arr[i][1], mass, x, y , link, arr[i][6], arr[i][7] ]
               arr[j] = [null, null, 1, null, null]
             } 
           }
@@ -117,31 +120,40 @@ class PREConstructorStarSystem extends Component{
     }
 
 
-    newStar(event) {
-      console.log(event)
+    newStar ( event ) {
       if( this.state.overlayShow ) return;
       clearInterval(this.timer)
-        let arr = this.stars
-        arr.push([
-          event.x, 
-          event.y, 
-          this.state.selectedItem.massID, 
-          (Math.random() - 0.5) / 100 , 
-          (Math.random() - 0.5) / 100, 
-          this.state.selectedItem.link])
-        this.stars = arr
+      let arr = this.stars
+      
+      arr.push([
+        event.x, 
+        event.y, 
+        this.state.selectedItem.massID, 
+        (Math.random() - 0.5) / 100 , 
+        (Math.random() - 0.5) / 100, 
+        this.state.selectedItem.link,
+        newObjectsNameGenerator(this.state.selectedItem.text),
+        this.state.selectedItem.text
+      ])
 
- 
-        this.timer = setInterval(() => {
-          this.coordinatsUpdate()
-        }, 1);
-        
+      this.stars = arr
+      this.timer = setInterval(() => {
+        this.coordinatsUpdate()
+      }, 1);
+    }
+    imgClick (object) {
+      console.log(this.state.selectedItem)
+      let link = object[5]
+      let name = object[6]
+      let type = object[7]
+      this.setState({ overlayItem: { link: link, name: name, text: type } })
+      this.hideShowOverlay()
     }
     changeObject (object) {
       if ( object.text === this.state.selectedItem.text) {
+        this.setState({ overlayItem: this.state.selectedItem })
         this.hideShowOverlay()
       }
-      console.log(object)
       this.setState({ selectedItem: object})
     }
     hideShowOverlay () {
@@ -154,12 +166,13 @@ class PREConstructorStarSystem extends Component{
       let menuShow = this.state.hideShow ? "constructorOfStarSystem__changer" : "HidedMenu constructorOfStarSystem__changer"
       return(   
         <div className="constructorOfStarSystem__container" onClick={ () => this.newStar(event)}>
-          <ConstructorsOfDynamicElements stars={this.state.stars} />
+          <ConstructorsOfDynamicElements  stars={this.state.stars} 
+                                          imgClick={ (object) => this.imgClick(object) }/>
           <SecondMenu listOfMenu={this.state.listOfSpaceObjects}
                       onSelectObject={object => this.changeObject(object)}/>
           <Overlay  overlayShow={this.state.overlayShow} 
                     hideShowOverlay={ () => this.hideShowOverlay()}
-                    object={this.state.selectedItem}/>
+                    object={this.state.overlayItem}/>
         </div>
       );
     }
