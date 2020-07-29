@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import  plus  from "./img/plus.png"
 
 export const SecondMenu = props => {
-    const [selectedItem, setSelectedItem] = useState(0);
+    const [selectedItem, setSelectedItem] = useState(props.listOfMenu[0].massID);
     const [hideShow, setHideShow] = useState(false);
     const changeObject = (e, object) =>{
         e.stopPropagation()

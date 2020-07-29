@@ -4,6 +4,10 @@
   font-family: Void; /* Имя шрифта */
   src: url(17320.otf); /* Путь к файлу со шрифтом */
  }
+@font-face {
+  font-family: Text; /* Имя шрифта */
+  src: url(18480.ttf); /* Путь к файлу со шрифтом */
+ }
 html{
   height: 100%;
 }
@@ -539,10 +543,11 @@ body {
   position: absolute;
   max-width: 500px;
   min-width: 300px;
-  height: 100%;
+  overflow: scroll;
   left: 50%;
-  top:20px;
-  border-radius: 20px;
+  top: 20px;
+  bottom: 20px;
+  border-radius: 20px 8px 8px 20px;
   transform: translate(-50%, 0);
   background-color: rgba(120, 170, 126, 0.769);
   opacity: 1;
@@ -569,10 +574,31 @@ body {
 }
 
 .overlay__p {
+  font-family: Text;
   font-size: 120%;
+  font-weight: 500;
 }
 
-
+::-webkit-scrollbar { 
+  width: 12px;
+  top: 10px;
+  margin-bottom: 10px;
+}
+::-webkit-scrollbar-button { 
+  display: none;
+ }
+::-webkit-scrollbar-track        { 
+  border-radius: 10px;
+  background-color: #8df59b00;  
+}
+::-webkit-scrollbar-thumb { 
+  border-radius: 10px;
+  margin-top: 10px;
+  -webkit-box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.292); 
+}
+::-webkit-scrollbar-corner       {
+  display: none;
+}
 
 
 
@@ -581,7 +607,7 @@ body {
 .exit {
   width: 60px;
   position: relative;
-  z-index: 999999;
+  z-index: 9999;
 }
 
 

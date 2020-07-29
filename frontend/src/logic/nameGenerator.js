@@ -13,6 +13,10 @@ export default (type) => {
             name += randomSign()
             name += randomInteger( 1000 , 9000 )
             break;
+        case "Черная дыра":
+            name += "NGC "
+            name += randomInteger( 1000 , 9000 )
+            break;
         case "Звезда класса G":
             name = randomNameOfStar()
             break;
