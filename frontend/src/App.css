@@ -281,6 +281,37 @@ body {
 .constructorOfStarSystem__menuButton:hover {
   background-color: rgba(57, 144, 194, 0.7);
 }
+.constructorOfStarSystem__pauseButton {
+  width: 40px;
+  position: fixed;
+  right: 60px;
+  bottom: 7px;
+  border: 3px solid rgba(138, 169, 187, 0.463);
+  border-radius: 5px;
+  background-color: rgba(138, 169, 187, 0.463);
+}
+.constructorOfStarSystem__speedRegulationBlock {
+  position: fixed;
+  display: grid;
+  border: 3px solid rgba(138, 169, 187, 0.463);
+  border-radius: 38px;
+  grid-template-columns: 32px 32px 32px;
+  height: 38px;
+  bottom: 8px;
+  right: 120px;
+  background-color: rgba(138, 169, 187, 0.463);
+}
+.constructorOfStarSystem__speedRegulationButton {
+
+  width: 32px;
+}
+.constructorOfStarSystem__speedRegulationInfo {
+  position: relative;
+  font-size: 150%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
 .spaceObject:hover {
   width: 90px;
   position: absolute;

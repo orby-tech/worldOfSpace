@@ -11,6 +11,7 @@ import  ConstructorStarSystem from './constructorOfStarSystem'
 import  MoonPanoram from './moonPanoram'
 import  Curiosity from './Curiosity'
 import  AudioOfSpace from './AudioOfSpace'
+import  SpaceScale from './SpaceScale'
 
 import  { Route }       from 'react-router-dom';
 import  { BrowserRouter } from 'react-router-dom';
@@ -44,6 +45,7 @@ function App() {
           <Route path="/moon_panoram" exact component={MoonPanoram} />
           <Route path="/mars_rider" exact component={Curiosity} />
           <Route path="/audio_of_space" exact component={AudioOfSpace} />
+          <Route path="/space_scale" exact component={SpaceScale} />
           <div className="alt__footer"></div>
         </BrowserRouter>
         </Provider>

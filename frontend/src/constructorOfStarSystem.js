@@ -15,6 +15,8 @@ import  Cvasar from "./img/cvasar.png";
 import  plus  from "./img/plus.png"
 const a =  3
 
+const speedList = [0.25, 0.5, 1, 1.5, 2, 3, 4, 5]
+
 function sortByMass(a, b){
   return -(a[2] - b[2])
   }
@@ -44,8 +46,9 @@ class PREConstructorStarSystem extends Component{
         hideShow: false,
         overlayShow: false,
         overlayItem: {text: "", link: '', massID: null},
-      }
-  
+        pause: false,
+        speedIndex: 3,
+      }  
     }
     componentWillMount(){
       document.body.scrollTo(0,0)
@@ -110,21 +113,30 @@ class PREConstructorStarSystem extends Component{
     }
     componentDidMount(){
       if(document.querySelector('.constructorOfStarSystem__star')) {
-        this.timer = setInterval(() => {
-          
-          this.coordinatsUpdate() 
-        }, 1);
+        this.start()
       } else {
-        clearInterval(this.timer)
+        this.stop()
       }
     }
-
-
+    componentDidUpdate (prevProps, prevState) {
+      if(prevState.speedIndex !== this.state.speedIndex) {
+        this.stop()
+        this.start()
+        console.log(10 * speedList[this.state.speedIndex])
+      }
+    }
+    start () {
+      clearInterval(this.timer)
+      this.timer = setInterval(() => {          
+        this.coordinatsUpdate() 
+      }, 20 / speedList[this.state.speedIndex]);
+    }
+    stop () {
+      clearInterval(this.timer)
+    }
     newStar ( event ) {
       if( this.state.overlayShow ) return;
-      clearInterval(this.timer)
-      let arr = this.stars
-      
+      let arr = this.stars      
       arr.push([
         event.x, 
         event.y, 
@@ -137,9 +149,7 @@ class PREConstructorStarSystem extends Component{
       ])
 
       this.stars = arr
-      this.timer = setInterval(() => {
-        this.coordinatsUpdate()
-      }, 1);
+      this.start()
     }
     imgClick (object) {
       console.log(this.state.selectedItem)
@@ -161,7 +171,20 @@ class PREConstructorStarSystem extends Component{
         this.setState({ overlayShow: !this.state.overlayShow })
       }, 20)
     }
-
+    pauseButton(){
+      this.setState({ pause: !this.state.pause })
+      if( !this.state.pause ) {
+        this.stop()
+      } else {
+        this.start()
+      }
+    }
+    changeSpeed (v) {
+      let newSpeed = this.state.speedIndex + v
+      if ( newSpeed < 0 ) { newSpeed = 0 }
+      if ( newSpeed > 7 ) { newSpeed = 7 }
+      this.setState({ speedIndex: newSpeed })
+    }
     render() {
       let menuShow = this.state.hideShow ? "constructorOfStarSystem__changer" : "HidedMenu constructorOfStarSystem__changer"
       return(   
@@ -169,6 +192,10 @@ class PREConstructorStarSystem extends Component{
           <ConstructorsOfDynamicElements  stars={this.state.stars} 
                                           imgClick={ (object) => this.imgClick(object) }/>
           <SecondMenu listOfMenu={this.state.listOfSpaceObjects}
+                      pause={this.state.pause}
+                      pauseButton={() => this.pauseButton()}
+                      speed={speedList[this.state.speedIndex]}
+                      changeSpeed={(v)=> this.changeSpeed(v)}
                       onSelectObject={object => this.changeObject(object)}/>
           <Overlay  overlayShow={this.state.overlayShow} 
                     hideShowOverlay={ () => this.hideShowOverlay()}
