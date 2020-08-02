@@ -1,34 +1,10 @@
 import React, { Component }  from 'react';
 import  { connect } from 'react-redux'
 
-import  sun from "./img/sun.png";
-import  earth from "./img/earth.png";
-import  mercury from "./img/mercury.png";
-import  venera from "./img/venera.png";
-import  mars from "./img/mars.png";
-import  jupiter from "./img/jupiter.png";
-import  saturn from "./img/saturn.png";
-import  uranus from "./img/uranus.png";
-import  neptun from "./img/neptun.png";
-import  moon from "./img/moon.png";
 import  asteroidIMG from "./img/asteroid.png";
+import { solarSystem__listOfStaticElements, solarSystem__listOfBaseElements } from './logic/variables'
 
-const G = 6.674484
-const mEarth = 5.972 * Math.pow(10, 13)
-const mMoon = 7.6 * Math.pow(10, 11 )
-const scale = 385000 / 204
-const correctionTime = 0.1
-const listOfStaticElements = [
-  { "orbit": 1 },
-  { "orbit": 0.9 },
-  { "orbit": 0.7 },
-  { "orbit": 0.6 },
-  { "orbit": 0.4 },
-  { "orbit": 0.3 },
-  { "orbit": 0.2 },
-  { "orbit": 0.1 },
-]
-
+const listOfStaticElements = solarSystem__listOfStaticElements
 let intervalForTick 
 let tick = 0
 
@@ -40,17 +16,7 @@ class PRESolarSystem extends Component{
           ? window.innerHeight * 0.9
           : window.innerWidth * 0.9,
       centerOfBlock: [ window.innerWidth / 2, window.innerHeight / 2 ],
-      listOfBaseElements: [
-            { "object": sun,     "position": [0,0], "orbit": 0,   "form": 1 ,   "mass": 6.5,    "speed": 1 },
-            { "object": mercury, "position": [0,0], "orbit": 0.1, "form": 0.2 , "mass": 0.2,    "speed": 1 },
-            { "object": venera,  "position": [0,0], "orbit": 0.2, "form": 0.3 , "mass": 0.3,    "speed": 0.7 },
-            { "object": earth,   "position": [0,0], "orbit": 0.3, "form": 0.3 , "mass": 0.5,    "speed": 0.5 },
-            { "object": mars,    "position": [0,0], "orbit": 0.4, "form": 0.3 , "mass": 0.4,    "speed": 0.3 },
-            { "object": jupiter, "position": [0,0], "orbit": 0.6, "form": 0.5 , "mass": 1.2,    "speed": 0.2 },
-            { "object": saturn,  "position": [0,0], "orbit": 0.7, "form": 0.7 , "mass": 1, "speed": 0.1 },
-            { "object": uranus,  "position": [0,0], "orbit": 0.9, "form": 0.7 , "mass": 0.7,    "speed": 0.05 },
-            { "object": neptun,  "position": [0,0], "orbit": 1,   "form": 0.3 , "mass": 0.7, "speed": 0.025 }
-          ],
+      listOfBaseElements: solarSystem__listOfBaseElements,
       listOfDynamicElements: [],
     }
 
@@ -60,13 +26,9 @@ class PRESolarSystem extends Component{
     this.loop()
     document.body.scrollTo(0,0)
     document.body.style.overflow = "hidden"
-    document.addEventListener(
-          "scroll",
-          function(e){
+    document.addEventListener( "scroll", function(e){
             document.body.scrollTo(0,0)
-          },
-          true)
-      
+          }, true)      
     document.body.addEventListener('click', (event) => this.appendNewObject(event))
   }
   loop(){
