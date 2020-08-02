@@ -8,16 +8,18 @@ import  earth from "./img/earth.png";
 import  moon from "./img/moonPre.png";
 import  music from "./img/music.png";
 import curiosity from "./img/marsCuriosity/curiosity.png";
+import spaceScale from './img/space_scale_icon.png'
 class PREStart extends Component{
     constructor(props){
       super(props);
       this.items = [
-        {text: "Конструктор звездной системы", link:"/constructor_Of_Star_System", img: rocket },
-        {text: "Как звучит космос", link:"/audio_of_space", img: music },
-        {text: "Земная система", link:"/earth", img: earth },
-        {text: "Солнечная система", link:"/solar_system", img: sun },
-        {text: "Лунная панорама из Чанъе-3", link:"/moon_panoram", img: moon },
-        {text: "Управление Curiosity", link:"/mars_rider", img: curiosity },
+        {text: "Конструктор звездной системы",  link:"/constructor_Of_Star_System", img: rocket },
+        {text: "Как звучит космос",             link:"/audio_of_space",             img: music },
+        {text: "Земная система",                link:"/earth",                      img: earth },
+        {text: "Солнечная система",             link:"/solar_system",               img: sun },
+        {text: "Лунная панорама из Чанъе-3",    link:"/moon_panoram",               img: moon },
+        {text: "Управление Curiosity",          link:"/mars_rider",                 img: curiosity },
+        {text: "Вглубь вселенной",              link:"/space_scale",                img: spaceScale },
       ]
       this.state = {
       }
