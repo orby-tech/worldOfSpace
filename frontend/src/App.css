@@ -638,7 +638,7 @@ body {
 .exit {
   width: 60px;
   position: relative;
-  z-index: 9999;
+  z-index: 999900;
 }
 
 

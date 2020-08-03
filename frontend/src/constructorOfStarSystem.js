@@ -57,6 +57,7 @@ class PREConstructorStarSystem extends Component{
   
     coordinatsUpdate() {      
         let arr = this.stars
+        let delta = speedList[this.state.speedIndex]
         let distance = 0
         let power = 0
         let powerX = 0
@@ -65,11 +66,11 @@ class PREConstructorStarSystem extends Component{
         for (let i = 0; i< arr.length; i++) {
           for (let j = i+1; j< arr.length; j++) {            
             distance = ((arr[i][0] - arr[j][0]) ** 2 + (arr[i][1] - arr[j][1]) ** 2) ** 0.5            
-            power = arr[i][2] * arr[j][2] / distance * 0.0005
+            power = arr[i][2] * arr[j][2] / distance * 0.0005 
      
             powerX = power / distance  * (arr[i][0] - arr[j][0])
             powerY = power / distance  * (arr[i][1] - arr[j][1])
-            arr[i][3] -= powerX / arr[i][2]
+            arr[i][3] -= powerX / arr[i][2] 
             arr[i][4] -= powerY / arr[i][2]
             arr[j][3] += powerX / arr[j][2]
             arr[j][4] += powerY / arr[j][2]
@@ -99,10 +100,8 @@ class PREConstructorStarSystem extends Component{
         let tempArr = []
         for (let i = 0; i< arr.length; i++) {
           if (arr[i][0] && Math.abs(arr[i][0])< 1000 && Math.abs(arr[i][1])< 1000){
-            arr[i][0] += arr[i][3]
-            arr[i][1] += arr[i][4]
-
-
+            arr[i][0] += arr[i][3] * delta
+            arr[i][1] += arr[i][4] * delta
             tempArr.push(arr[i])
           }
         }
